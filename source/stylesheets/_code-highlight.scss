@@ -1,0 +1,33 @@
+@import 'variables';
+
+.highlight .c {
+  color: $vopay-comment !important;
+}
+
+.highlight .nf, .highlight .fm {
+  color: $vopay-green !important;
+}
+
+.highlight .no {
+  color: $vopay-cyan !important;
+}
+
+.highlight .kd, .highlight .kn, .highlight .nb {
+  color: $vopay-pink !important;
+}
+
+.highlight .o {
+  color: $vopay-red !important;
+}
+
+.highlight .nl {
+  color: $vopay-white !important;
+}
+
+.highlight .s1, .highlight .s2 {
+  color: $vopay-yellow !important;
+}
+
+.highlight .mi {
+  color: $vopay-purple !important;
+}
