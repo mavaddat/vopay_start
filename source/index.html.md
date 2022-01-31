@@ -3,12 +3,11 @@ title: API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell
-  - ruby
+  - powershell
   - python
-  - javascript
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
+  - <a href='https://vopay.com/api-sandbox/'>Sign Up for a Developer Key</a>
   - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
 
 includes:
@@ -20,50 +19,54 @@ code_clipboard: true
 
 meta:
   - name: description
-    content: Documentation for the Kittn API
+    content: Getting Started with VoPay API's
 ---
 
-# Introduction
+## Getting Started
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+This guide will describe first steps to execute financial transactions using our API endpoints. To get a comfortable, we'll use our system shell to make a few basic queries and send some test data.
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+First, though, we need to understand how each request is authenticated.
 
-This example API documentation page was created with [Slate](https://github.com/slatedocs/slate). Feel free to edit it and use it as a base for your own API's documentation.
+## Authentication
 
-# Authentication
+When you sign up for an account, VoPay sends you two pieces of information. The first is a **shared secret**; the second is the **API key**. To authenticate, we will be joining or _concatenating _these two pieces of information (_strings_) together with the current date.
 
-> To authorize, use this code:
+Here is a concatenation with a shared secret and an API key:
 
-```ruby
-require 'kittn'
+![Three example values concatenated together](/images/secret.svg)
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+> Concatenation of the key, shared secret, and formatted date:
+
+```powershell
+$myVoPayKey = "3da541559918a808c2402bba5012f6c60b27661c"
+$myVoPaySecret = "OTEyZWM4MDNiMmNINDk="
+$formattedDate = Get-Date -Format "yyyy-MM-dd"
+$myVoPayAuthStr = $myVoPayKey + $myVoPaySecret + $formattedDate
 ```
 
 ```python
-import kittn
+my_vopay_key = "3da541559918a808c2402bba5012f6c60b27661c"
+my_vopay_secret = "OTEyZWM4MDNiMmNINDk="
+formatted_date = datetime.datetime.now().strftime("%Y-%m-%d")
+my_vopay_auth_str = my_vopay_key + my_vopay_secret + formatted_date
 
-api = kittn.authorize('meowmeowmeow')
 ```
 
 ```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here" \
-  -H "Authorization: meowmeowmeow"
+my_vopay_key="3da541559918a808c2402bba5012f6c60b27661c"
+my_vopay_secret="OTEyZWM4MDNiMmNINDk="
+formatted_date=$(date +%Y-%m-%d)
+my_vopay_auth_str=$my_vopay_key$my_vopay_secret$formatted_date
 ```
 
-```javascript
-const kittn = require('kittn');
+> Make sure to replace the example values with your API key and shared secret.
 
-let api = kittn.authorize('meowmeowmeow');
-```
+Use the **sandbox key** and **shared secret** assigned to you by VoPay.
 
-> Make sure to replace `meowmeowmeow` with your API key.
+If you haven't already, [request sandbox API credentials with VoPay](https://vopay.com/api-sandbox/); then, substitute into the code snippets the credentials provided in your welcome email instead of the example values here. The sandbox account comes pre-populated with sample data to make testing more fun.
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+We join the API key <strong><code>"3da54…b27661c"</code></strong> with the shared secret <strong> <code>"OTEy…INDk="</code></strong> and the date in <strong><code>yyyy-MM-dd</code></strong> format to make the concatenated string:
 
 `Authorization: meowmeowmeow`
 
@@ -71,7 +74,7 @@ Kittn expects for the API key to be included in all API requests to the server i
 You must replace <code>meowmeowmeow</code> with your personal API key.
 </aside>
 
-# Kittens
+## Kittens
 
 ## Get All Kittens
 
@@ -242,4 +245,3 @@ This endpoint deletes a specific kitten.
 Parameter | Description
 --------- | -----------
 ID | The ID of the kitten to delete
-
