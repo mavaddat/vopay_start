@@ -132,7 +132,7 @@ The result:
 }
 ```
 
-<aside class="success">We queried the VoPay [account/balance endpoint](https://docs.vopay.com/v2/vopay-api-reference/ref#accountbalanceget) to retrieve the current account balance for our sandbox account.</aside>
+<aside class="success">We queried the VoPay <a href="https://docs.vopay.com/v2/vopay-api-reference/ref#accountbalanceget" target="_blank"><code>GET</code> account/balance endpoint</a> to retrieve the current account balance for our sandbox account.</aside>
 
 ## Kittens
 
