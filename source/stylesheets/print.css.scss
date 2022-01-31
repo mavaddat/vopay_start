@@ -6,6 +6,8 @@
 /*
 Copyright 2008-2013 Concur Technologies, Inc.
 
+Copyright 2022-2023 VoPay International
+
 Licensed under the Apache License, Version 2.0 (the "License"); you may
 not use this file except in compliance with the License. You may obtain
 a copy of the License at
@@ -145,7 +147,13 @@ body {
     @extend %icon-ok-sign;
   }
 }
-
+div#crop {
+  overflow: hidden;
+  height: 13em;
+}
+img#handshake {
+  margin-top: -8.6em;
+}
 .copy-clipboard {
   @media print {
     display: none
