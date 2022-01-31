@@ -31,6 +31,7 @@ $vopay-cyan: #8be9fd;
 $vopay-green: #50fa7b;
 $vopay-orange: #ffb86c;
 $vopay-pink: #ff79c6;
+$vopay-redorg: #eea209;
 $vopay-purple: #bd93f9;
 $vopay-red: #ff5555;
 $vopay-yellow: #f1fa8c;
@@ -50,7 +51,7 @@ $lang-select-border: #000 !default;
 $lang-select-bg: #1E2224 !default;
 $lang-select-active-bg: $examples-bg !default; // feel free to change this to blue or something
 $lang-select-pressed-bg: #111 !default; // color of language tab bg when mouse is pressed
-$main-bg: #FFF !default;
+$main-bg: $vopay-white !default;
 $aside-notice-bg: #E7EEFE !default;
 $aside-notice-text: #1457F9 !default;
 $aside-warning-bg: #FFEAED !default;

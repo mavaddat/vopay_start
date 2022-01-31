@@ -1,5 +1,5 @@
 ---
-title: API Reference
+title: Getting Started
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - powershell
@@ -31,19 +31,21 @@ First, though, we need to understand how each request is authenticated.
 
 ## Authentication
 
-When you sign up for an account, VoPay sends you two pieces of information. The first is a **shared secret**; the second is the **API key**. To authenticate, we will be joining or _concatenating _these two pieces of information (_strings_) together with the current date.
+When you sign up for an account, VoPay sends you two pieces of information. The first is a **shared secret**; the second is the **API key**. To authenticate, we will be joining or _concatenating_ these two pieces of information (_strings_) together with the current date.
 
 Here is a concatenation with a shared secret and an API key:
 
-![Three example values concatenated together](/images/secret.svg)
+![Three example values concatenated together](/images/secret.svg "This is the operation to concat our three example values ")
 
-We join the API key <strong><code>"3da54…b27661c"</code></strong> with the shared secret <strong> <code>"OTEy…INDk="</code></strong> and the date in <strong><code>yyyy-MM-dd</code></strong> format to make the concatenated string:
+We join the API key <strong><code style="color: #1111fe !important;">"3da54…b27661c"</code></strong> with the shared secret <strong><code style="color: #55fd55 !important;">"OTEy…INDk="</code></strong> and the date in <strong><code style="color: #9e0dfe !important;">yyyy-MM-dd</code></strong> format to make the concatenated string:
 
-![](/images/concat.svg)
+![The resulting string after concatenation](/images/concat.svg "Colour-coded concatenated string")
 
-Now let's use the **sandbox key** and **shared secret** assigned to you by VoPay.
+Find the **sandbox key** and **shared secret** assigned to you by VoPay.
 
-If you haven't already, [request sandbox API credentials with VoPay](https://vopay.com/api-sandbox/); then, substitute into the code snippets the credentials provided in your welcome email instead of the example values here. The sandbox account comes pre-populated with sample data to make testing more fun.
+<aside class="notice">
+The sandbox is pre-populated with data to query. If you haven't already, <a href="https://vopay.com/api-sandbox/" target="_blank">request sandbox API credentials</a> with VoPay; then, substitute those credentials into the code snippets.
+</aside>
 
 > Concatenation of the key, shared secret, and formatted date:
 
@@ -69,16 +71,16 @@ my_vopay_auth_str = my_vopay_key + my_vopay_secret + formatted_date
 
 ```
 
-> Replace the example values with your API key and shared secret.
+We will now perform a "cryptographic hash" (or just "hash") on this string. Specifically, the SHA1 hash.
 
-We will now perform a "cryptographic hash" (or just "hash") on this string. Specifically, the SHA1 hash. In Windows, we convert the above concatenated string into a binary representation. Then, we pass that to a hashing function.
-
-See the code snippets to perform a SHA1 hash in your preferred language.
+> A SHA1 hash can be calculated in any shell.
 
 ```powershell
+# We convert the concatenated string into a binary representation.
 $myVoPayAuthChars = $myVoPayAuthStr.ToCharArray()
 $myVoPayAuthBytes = $myVoPayAuthChars | ForEach-Object { [System.Convert]::ToByte($_) }
 $myVoPayAuthStream = [IO.MemoryStream]::new($myVoPayAuthBytes)  # Note: Reading changes the stream position
+# Then, we pass that to a hashing function.
 $myVoPayHash = Get-FileHash -InputStream $myVoPayAuthStream -Algorithm SHA1
 $myVoPaySig = $myVoPayHash.Hash.ToLowerInvariant()
 ```
@@ -90,15 +92,6 @@ my_vopay_sig=$(echo -n $my_vopay_auth_str | sha1sum | awk '{print $1}')
 ```python
 my_vopay_sig = hashlib.sha1(my_vopay_auth_str.encode('utf-8')).hexdigest()
 ```
-
-<aside class="notice">
-To get these code snippets working with your credentials, put your
-<ul>
-<li>API key instead of <code>3da541559918a808c2402bba5012f6c60b27661c</code></li>
-<li>API shared secret <code>OTEyZWM4MDNiMmNINDk=</code></li>
-<li>username instead of <code>daniella.nkechi@example.com</code> </li>
-</ul>
-</aside>
 
 We will call the result our "signature". Let's see if we can use the signature to receive some information from the sandbox. For this, we also need your sandbox username. We will use the sandbox username as the `AccountID` in all our API testing.
 
@@ -117,7 +110,7 @@ my_vopay_account_id="daniella.nkechi@example.com"
 r = requests.get("https://earthnode-dev.vopay.com/api/v2/account/balance?AccountID=%s&Key=%s&Signature=%s&Currency=CAD" % (my_vopay_account_id, my_vopay_key, my_vopay_sig))
 ```
 
-The result:
+> The result
 
 ```json
 {
@@ -134,174 +127,49 @@ The result:
 
 <aside class="success">We queried the VoPay <a href="https://docs.vopay.com/v2/vopay-api-reference/ref#accountbalanceget" target="_blank"><code>GET</code> account/balance endpoint</a> to retrieve the current account balance for our sandbox account.</aside>
 
-## Kittens
+This endpoint retrieves our account balance.
 
-## Get All Kittens
+### HTTPS Request
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
+`GET https://earthnode-dev.vopay.com/api/v2/account/balance`
 
 ### Query Parameters
 
 Parameter | Default | Description
 --------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+account_id | None | The email address or identifier of the sandbox account (provided by you when signing up).
+api_key | None | Unique identifier represented as 40-character hexadecimal string used to access the endpoints (provided by VoPay).
+signature | None | A SHA1 hash of your string-concatenated `api_key`, `shared_secret`, and `formatted_date`.
+currency | None | [ISO 4217 currency code](https://www.iso.org/iso-4217-currency-codes.html) for your desired country.
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+## How VoPay works
+
+Let's take a step back to look at how VoPay works.
+
+### Virtual wallet
+
+VoPay provides programmatic endpoints to perform any financial transaction: withdraw and deposit from your savings or chequing accounts; request payments; transfer or send money; make bulk payouts; and more. This allows your funds to exist securely in a digital space with all the confidence you place in your own bank.
+
+In effect, a VoPay account acts like a virtual wallet.
+
+### Sending money
+
+Before making outbound transactions, we need to make funds available digitally. To send money, we first **fund** our wallet.
+
+![Digital wallet](/images/wallet.svg)
+
+This means that we need to **deposit** funds into our wallet. We can do this by making a `POST` request to the `/api/v2/account/deposit` endpoint. We will use the `POST` method because we are depositing funds into our wallet. We will also use the `Content-Type` header to specify that we are sending JSON data.
+
+## Checking your balance
+
+As we have already seen, we can query the `/api/v2/account/balance` endpoint to retrieve the current balance of our account. This endpoint is also used to retrieve the balance of a specific currency.
+
+<aside class="information">
+VoPay does not do any currency conversions. The balance returned is the balance of the account in the currency specified in the `currency` query parameter.
 </aside>
 
-## Get a Specific Kitten
+## Funding your account
 
-```ruby
-require 'kittn'
+To fund our account, we will need to **deposit** funds into our wallet. We can do this by making a `POST` request to the `/api/v2/eft/fund` endpoint. We will use the `POST` method because we are depositing funds into our wallet. These requests can take up to three (3) business days to clear.
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
-
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -X DELETE \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
-```
-
-This endpoint deletes a specific kitten.
-
-### HTTP Request
-
-`DELETE http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
+Alternatively, we can fund our wallet by making an Interac payment request. Again, we will use the `POST` method to make the request, but this time we query the `/api/v2/interac/money-request` endpoint. With Interac transfer, funds clear as soon as money request is accepted.

@@ -95,7 +95,7 @@ template {
 
 a {
   background-color: transparent;
-  color: $vopay-pink;
+  color: $vopay-redorg;
 }
 
 /**
@@ -447,15 +447,26 @@ th {
 }
 
 .image-logo {
-  width: 85px;
-  margin: 25px auto;
+  background-color: black;
 }
 
 #crop {
   overflow: hidden;
-  height: 13em;
+  height: 12vw;
 }
 
 #handshake {
-  margin-top: -5.7em;
+  width: 100%;
+  margin-top: -7vw;
+}
+
+@media screen and (max-width: 768px) {
+  #crop {
+    overflow: hidden;
+    height: 30vw;
+  }
+  #handshake {
+    width: 100%;
+    margin-top: -18vw;
+  }
 }
