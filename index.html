@@ -5,11 +5,18 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32-84e60f9d.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16-8ebd69c8.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="safari-pinned-tab-29e94408.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
         <meta
             name="description"
             content="Getting Started with VoPay API's"
         >
-    <title>API Reference</title>
+    <title>Getting Started</title>
 
     <style media="screen">
       .highlight table td { padding: 5px; }
@@ -286,8 +293,8 @@
   color: #859900;
 }
     </style>
-    <link href="stylesheets/screen-89bcc0a7.css" rel="stylesheet" media="screen" />
-    <link href="stylesheets/print-589b7ff8.css" rel="stylesheet" media="print" />
+    <link href="stylesheets/screen-47a5d8d9.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print-550f9eb8.css" rel="stylesheet" media="print" />
       <script src="javascripts/all-25cc4a4f.js"></script>
 
     <script>
@@ -334,19 +341,21 @@
 
 <p id="crop"><img id="handshake" src="images/handshake-8563f137.gif" alt="Handshake to authenticate" title="Authentication is like a secret handshake &mdash; to receive JSON"></p>
 <h2 id='authentication'>Authentication</h2>
-<p>When you sign up for an account, VoPay sends you two pieces of information. The first is a <strong>shared secret</strong>; the second is the <strong>API key</strong>. To authenticate, we will be joining or <em>concatenating _these two pieces of information (_strings</em>) together with the current date.</p>
+<p>When you sign up for an account, VoPay sends you two pieces of information. The first is a <strong>shared secret</strong>; the second is the <strong>API key</strong>. To authenticate, we will be joining or <em>concatenating</em> these two pieces of information (<em>strings</em>) together with the current date.</p>
 
 <p>Here is a concatenation with a shared secret and an API key:</p>
 
-<p><img src="images/secret-5501c857.svg" alt="Three example values concatenated together" /></p>
+<p><img src="images/secret-5501c857.svg" title="This is the operation to concat our three example values " alt="Three example values concatenated together" /></p>
 
-<p>We join the API key <strong><code>&quot;3da54…b27661c&quot;</code></strong> with the shared secret <strong> <code>&quot;OTEy…INDk=&quot;</code></strong> and the date in <strong><code>yyyy-MM-dd</code></strong> format to make the concatenated string:</p>
+<p>We join the API key <strong><code style="color: #1111fe !important;">&quot;3da54…b27661c&quot;</code></strong> with the shared secret <strong><code style="color: #55fd55 !important;">&quot;OTEy…INDk=&quot;</code></strong> and the date in <strong><code style="color: #9e0dfe !important;">yyyy-MM-dd</code></strong> format to make the concatenated string:</p>
 
-<p><img src="images/concat-6a334634.svg" alt="" /></p>
+<p><img src="images/concat-6a334634.svg" title="Colour-coded concatenated string" alt="The resulting string after concatenation" /></p>
 
-<p>Now let&#39;s use the <strong>sandbox key</strong> and <strong>shared secret</strong> assigned to you by VoPay.</p>
+<p>Find the <strong>sandbox key</strong> and <strong>shared secret</strong> assigned to you by VoPay.</p>
 
-<p>If you haven&#39;t already, <a href="https://vopay.com/api-sandbox/">request sandbox API credentials with VoPay</a>; then, substitute into the code snippets the credentials provided in your welcome email instead of the example values here. The sandbox account comes pre-populated with sample data to make testing more fun.</p>
+<aside class="notice">
+The sandbox is pre-populated with data to query. If you haven't already, <a href="https://vopay.com/api-sandbox/" target="_blank">request sandbox API credentials</a> with VoPay; then, substitute those credentials into the code snippets.
+</aside>
 
 <blockquote>
 <p>Concatenation of the key, shared secret, and formatted date:</p>
@@ -365,30 +374,21 @@
 <span class="n">my_vopay_auth_str</span> <span class="o">=</span> <span class="n">my_vopay_key</span> <span class="o">+</span> <span class="n">my_vopay_secret</span> <span class="o">+</span> <span class="n">formatted_date</span>
 
 </code></pre></div>
+<p>We will now perform a &quot;cryptographic hash&quot; (or just &quot;hash&quot;) on this string. Specifically, the SHA1 hash.</p>
+
 <blockquote>
-<p>Replace the example values with your API key and shared secret.</p>
+<p>A SHA1 hash can be calculated in any shell.</p>
 </blockquote>
-
-<p>We will now perform a &quot;cryptographic hash&quot; (or just &quot;hash&quot;) on this string. Specifically, the SHA1 hash. In Windows, we convert the above concatenated string into a binary representation. Then, we pass that to a hashing function.</p>
-
-<p>See the code snippets to perform a SHA1 hash in your preferred language.</p>
-<div class="highlight"><pre class="highlight powershell tab-powershell"><code><span class="nv">$myVoPayAuthChars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$myVoPayAuthStr</span><span class="o">.</span><span class="nf">ToCharArray</span><span class="p">()</span><span class="w">
+<div class="highlight"><pre class="highlight powershell tab-powershell"><code><span class="c"># We convert the concatenated string into a binary representation.</span><span class="w">
+</span><span class="nv">$myVoPayAuthChars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$myVoPayAuthStr</span><span class="o">.</span><span class="nf">ToCharArray</span><span class="p">()</span><span class="w">
 </span><span class="nv">$myVoPayAuthBytes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$myVoPayAuthChars</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ForEach-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="n">System.Convert</span><span class="p">]::</span><span class="n">ToByte</span><span class="p">(</span><span class="bp">$_</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w">
 </span><span class="nv">$myVoPayAuthStream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">IO.MemoryStream</span><span class="p">]::</span><span class="n">new</span><span class="p">(</span><span class="nv">$myVoPayAuthBytes</span><span class="p">)</span><span class="w">  </span><span class="c"># Note: Reading changes the stream position</span><span class="w">
+</span><span class="c"># Then, we pass that to a hashing function.</span><span class="w">
 </span><span class="nv">$myVoPayHash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-FileHash</span><span class="w"> </span><span class="nt">-InputStream</span><span class="w"> </span><span class="nv">$myVoPayAuthStream</span><span class="w"> </span><span class="nt">-Algorithm</span><span class="w"> </span><span class="nx">SHA1</span><span class="w">
 </span><span class="nv">$myVoPaySig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$myVoPayHash</span><span class="o">.</span><span class="nf">Hash</span><span class="o">.</span><span class="nf">ToLowerInvariant</span><span class="p">()</span><span class="w">
 </span></code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="nv">my_vopay_sig</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="nt">-n</span> <span class="nv">$my_vopay_auth_str</span> | <span class="nb">sha1sum</span> | <span class="nb">awk</span> <span class="s1">'{print $1}'</span><span class="si">)</span>
 </code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="n">my_vopay_sig</span> <span class="o">=</span> <span class="n">hashlib</span><span class="p">.</span><span class="n">sha1</span><span class="p">(</span><span class="n">my_vopay_auth_str</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)).</span><span class="n">hexdigest</span><span class="p">()</span>
 </code></pre></div>
-<aside class="notice">
-To get these code snippets working with your credentials, put your
-<ul>
-<li>API key instead of <code>3da541559918a808c2402bba5012f6c60b27661c</code></li>
-<li>API shared secret <code>OTEyZWM4MDNiMmNINDk=</code></li>
-<li>username instead of <code>daniella.nkechi@example.com</code> </li>
-</ul>
-</aside>
-
 <p>We will call the result our &quot;signature&quot;. Let&#39;s see if we can use the signature to receive some information from the sandbox. For this, we also need your sandbox username. We will use the sandbox username as the <code>AccountID</code> in all our API testing.</p>
 <div class="highlight"><pre class="highlight powershell tab-powershell"><code><span class="nv">$myVoPayAccountID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"daniella.nkechi@example.com"</span><span class="w">
 </span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="nt">-Method</span><span class="w"> </span><span class="nx">Get</span><span class="w"> </span><span class="nt">-Uri</span><span class="w"> </span><span class="s2">"https://earthnode-dev.vopay.com/api/v2/account/balance?AccountID=</span><span class="nv">$myVoPayAccountID</span><span class="s2">&amp;Key=</span><span class="nv">$myVoPayKey</span><span class="s2">&amp;Signature=</span><span class="nv">$myVoPaySig</span><span class="s2">&amp;Currency=CAD"</span><span class="w">
@@ -397,7 +397,9 @@ curl <span class="nt">-s</span> <span class="nt">-X</span> GET <span class="s2">
 </code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="n">my_vopay_account_id</span><span class="o">=</span><span class="s">"daniella.nkechi@example.com"</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://earthnode-dev.vopay.com/api/v2/account/balance?AccountID=%s&amp;Key=%s&amp;Signature=%s&amp;Currency=CAD"</span> <span class="o">%</span> <span class="p">(</span><span class="n">my_vopay_account_id</span><span class="p">,</span> <span class="n">my_vopay_key</span><span class="p">,</span> <span class="n">my_vopay_sig</span><span class="p">))</span>
 </code></pre></div>
-<p>The result:</p>
+<blockquote>
+<p>The result</p>
+</blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"Success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="nl">"ErrorMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
@@ -410,44 +412,10 @@ curl <span class="nt">-s</span> <span class="nt">-X</span> GET <span class="s2">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <aside class="success">We queried the VoPay <a href="https://docs.vopay.com/v2/vopay-api-reference/ref#accountbalanceget" target="_blank"><code>GET</code> account/balance endpoint</a> to retrieve the current account balance for our sandbox account.</aside>
-<h2 id='kittens'>Kittens</h2><h2 id='get-all-kittens'>Get All Kittens</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="n">kittens</span><span class="p">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">kittens</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="kd">get</span><span class="p">();</span>
-</code></pre></div>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre></div>
-<p>This endpoint retrieves all kittens.</p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code>GET http://example.com/api/kittens</code></p>
+<p>This endpoint retrieves our account balance.</p>
+<h3 id='https-request'>HTTPS Request</h3>
+<p><code>GET https://earthnode-dev.vopay.com/api/v2/account/balance</code></p>
 <h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -457,108 +425,55 @@ curl <span class="nt">-s</span> <span class="nt">-X</span> GET <span class="s2">
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
+<td>account_id</td>
+<td>None</td>
+<td>The email address or identifier of the sandbox account (provided by you when signing up).</td>
 </tr>
 <tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td>api_key</td>
+<td>None</td>
+<td>Unique identifier represented as 40-character hexadecimal string used to access the endpoints (provided by VoPay).</td>
+</tr>
+<tr>
+<td>signature</td>
+<td>None</td>
+<td>A SHA1 hash of your string-concatenated <code>api_key</code>, <code>shared_secret</code>, and <code>formatted_date</code>.</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>None</td>
+<td><a href="https://www.iso.org/iso-4217-currency-codes.html">ISO 4217 currency code</a> for your desired country.</td>
 </tr>
 </tbody></table>
+<h2 id='how-vopay-works'>How VoPay works</h2>
+<p>Let&#39;s take a step back to look at how VoPay works.</p>
+<h3 id='virtual-wallet'>Virtual wallet</h3>
+<p>VoPay provides programmatic endpoints to perform any financial transaction: withdraw and deposit from your savings or chequing accounts; request payments; transfer or send money; make bulk payouts; and more. This allows your funds to exist securely in a digital space with all the confidence you place in your own bank.</p>
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+<p>In effect, a VoPay account acts like a virtual wallet.</p>
+<h3 id='sending-money'>Sending money</h3>
+<p>Before making outbound transactions, we need to make funds available digitally. To send money, we first <strong>fund</strong> our wallet.</p>
+
+<p><img src="images/wallet-a8b98a4c.svg" alt="Digital wallet" /></p>
+
+<p>This means that we need to <strong>deposit</strong> funds into our wallet. We can do this by making a <code>POST</code> request to the <code>/api/v2/account/deposit</code> endpoint. We will use the <code>POST</code> method because we are depositing funds into our wallet. We will also use the <code>Content-Type</code> header to specify that we are sending JSON data.</p>
+<h2 id='checking-your-balance'>Checking your balance</h2>
+<p>As we have already seen, we can query the <code>/api/v2/account/balance</code> endpoint to retrieve the current balance of our account. This endpoint is also used to retrieve the balance of a specific currency.</p>
+
+<aside class="information">
+VoPay does not do any currency conversions. The balance returned is the balance of the account in the currency specified in the `currency` query parameter.
 </aside>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<h2 id='funding-your-account'>Funding your account</h2>
+<p>To fund our account, we will need to <strong>deposit</strong> funds into our wallet. We can do this by making a <code>POST</code> request to the <code>/api/v2/eft/fund</code> endpoint. We will use the <code>POST</code> method because we are depositing funds into our wallet. These requests can take up to three (3) business days to clear.</p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="n">kittens</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre></div>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p>This endpoint retrieves a specific kitten.</p>
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-<h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
-</tr>
-</tbody></table>
-<h2 id='delete-a-specific-kitten'>Delete a Specific Kitten</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="n">kittens</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span> <span class="se">\</span>
-  <span class="nt">-X</span> DELETE <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre></div>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"deleted"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p>This endpoint deletes a specific kitten.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
-<p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-2'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ID</td>
-<td>The ID of the kitten to delete</td>
-</tr>
-</tbody></table>
+<p>Alternatively, we can fund our wallet by making an Interac payment request. Again, we will use the <code>POST</code> method to make the request, but this time we query the <code>/api/v2/interac/money-request</code> endpoint. With Interac transfer, funds clear as soon as money request is accepted.</p>
 <h1 id='errors'>Errors</h1>
 <aside class="notice">
 This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
 </aside>
 
-<p>The Kittn API uses the following error codes:</p>
+<p>TODO: Replace with VoPay
+The Kittn API uses the following error codes:</p>
 
 <table><thead>
 <tr>
@@ -574,43 +489,22 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
 <td>401</td>
 <td>Unauthorized -- Your API key is wrong.</td>
 </tr>
-<tr>
-<td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
-</tr>
-<tr>
-<td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
-</tr>
-<tr>
-<td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
-</tr>
-<tr>
-<td>406</td>
-<td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
-</tr>
-<tr>
-<td>500</td>
-<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
-</tr>
-<tr>
-<td>503</td>
-<td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
-</tr>
 </tbody></table>
+
+<p>TODO: Replace with VoPay
+403 | Forbidden -- The kitten requested is hidden for administrators only.
+TODO: Replace with VoPay
+404 | Not Found -- The specified kitten could not be found.
+TODO: Replace with VoPay
+405 | Method Not Allowed -- You tried to access a kitten with an invalid method.
+406 | Not Acceptable -- You requested a format that isn&#39;t json.
+TODO: Replace with VoPay
+410 | Gone -- The kitten requested has been removed from our servers.
+418 | I&#39;m a teapot.
+TODO: Replace with VoPay
+429 | Too Many Requests -- You&#39;re requesting too many kittens! Slow down!
+500 | Internal Server Error -- We had a problem with our server. Try again later.
+503 | Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</p>
 
       </div>
       <div class="dark-box">
