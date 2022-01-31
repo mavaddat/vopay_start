@@ -27,7 +27,7 @@ This guide will describe first steps to execute financial transactions using our
 
 First, though, we need to understand how each request is authenticated.
 
-<div id="crop"><img id="handshake" src="images/handshake.gif" alt="Handshake to authenticate" title="Authentication is like a secret handshake &mdash; to receive JSON"></div>
+<p id="crop"><img id="handshake" src="images/handshake.gif" alt="Handshake to authenticate" title="Authentication is like a secret handshake &mdash; to receive JSON"></p>
 
 ## Authentication
 

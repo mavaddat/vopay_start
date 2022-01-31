@@ -147,13 +147,6 @@ body {
     @extend %icon-ok-sign;
   }
 }
-div#crop {
-  overflow: hidden;
-  height: 13em;
-}
-img#handshake {
-  margin-top: -8.6em;
-}
 .copy-clipboard {
   @media print {
     display: none
