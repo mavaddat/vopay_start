@@ -95,7 +95,7 @@ my_vopay_sig = hashlib.sha1(my_vopay_auth_str.encode('utf-8')).hexdigest()
 To get these code snippets working with your credentials, put your
 <ul>
 <li>API key instead of <code>3da541559918a808c2402bba5012f6c60b27661c</code></li>
-<li>API shared secret <code>OTEyZWM4MDNiMmNINDk=</code> with your</li>
+<li>API shared secret <code>OTEyZWM4MDNiMmNINDk=</code></li>
 <li>username instead of <code>daniella.nkechi@example.com</code> </li>
 </ul>
 </aside>
