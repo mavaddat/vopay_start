@@ -287,7 +287,7 @@
 }
     </style>
     <link href="stylesheets/screen-c9d8fa83.css" rel="stylesheet" media="screen" />
-    <link href="stylesheets/print-953e3353.css" rel="stylesheet" media="print" />
+    <link href="stylesheets/print-36e9dfad.css" rel="stylesheet" media="print" />
       <script src="javascripts/all-b12a2749.js"></script>
 
     <script>
@@ -295,7 +295,7 @@
     </script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;powershell&quot;,&quot;python&quot;]">
+  <body class="index" data-languages="[&quot;powershell&quot;,&quot;shell&quot;,&quot;python&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -305,8 +305,8 @@
     <div class="toc-wrapper">
       <img src="images/logo-1a4e74c0.png" class="logo" alt="" />
         <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
               <a href="#" data-language-name="powershell">powershell</a>
+              <a href="#" data-language-name="shell">shell</a>
               <a href="#" data-language-name="python">python</a>
         </div>
         <div class="search">
@@ -320,22 +320,31 @@
       </ul>
         <ul class="toc-footer">
             <li><a href='https://vopay.com/api-sandbox/'>Sign Up for a Developer Key</a></li>
-            <li><a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
         <h2 id='getting-started'>Getting Started</h2>
-<p>This guide will describe first steps to execute financial transactions using our API endpoints. To get a comfortable, we&#39;ll use our system shell to make a few basic queries and send some test data.</p>
+<p>This guide will describe first steps to execute financial transactions using our API endpoints. To get a comfortable, we&#39;ll use our system shell (Windows PowerShell, macOS/linux shell, or Python 3) to make a few basic queries and send some test data.</p>
 
 <p>First, though, we need to understand how each request is authenticated.</p>
+
+<div id="crop"><img id="handshake" src="images/handshake-8563f137.gif" alt="Handshake to authenticate" title="Authentication is like a secret handshake &mdash; to receive JSON"></div>
 <h2 id='authentication'>Authentication</h2>
 <p>When you sign up for an account, VoPay sends you two pieces of information. The first is a <strong>shared secret</strong>; the second is the <strong>API key</strong>. To authenticate, we will be joining or <em>concatenating _these two pieces of information (_strings</em>) together with the current date.</p>
 
 <p>Here is a concatenation with a shared secret and an API key:</p>
 
 <p><img src="images/secret-5501c857.svg" alt="Three example values concatenated together" /></p>
+
+<p>We join the API key <strong><code>&quot;3da54…b27661c&quot;</code></strong> with the shared secret <strong> <code>&quot;OTEy…INDk=&quot;</code></strong> and the date in <strong><code>yyyy-MM-dd</code></strong> format to make the concatenated string:</p>
+
+<p><img src="images/concat-6a334634.svg" alt="" /></p>
+
+<p>Now let&#39;s use the <strong>sandbox key</strong> and <strong>shared secret</strong> assigned to you by VoPay.</p>
+
+<p>If you haven&#39;t already, <a href="https://vopay.com/api-sandbox/">request sandbox API credentials with VoPay</a>; then, substitute into the code snippets the credentials provided in your welcome email instead of the example values here. The sandbox account comes pre-populated with sample data to make testing more fun.</p>
 
 <blockquote>
 <p>Concatenation of the key, shared secret, and formatted date:</p>
@@ -344,31 +353,61 @@
 </span><span class="nv">$myVoPaySecret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"OTEyZWM4MDNiMmNINDk="</span><span class="w">
 </span><span class="nv">$formattedDate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-Date</span><span class="w"> </span><span class="nt">-Format</span><span class="w"> </span><span class="s2">"yyyy-MM-dd"</span><span class="w">
 </span><span class="nv">$myVoPayAuthStr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$myVoPayKey</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$myVoPaySecret</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$formattedDate</span><span class="w">
-</span></code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="n">my_vopay_key</span> <span class="o">=</span> <span class="s">"3da541559918a808c2402bba5012f6c60b27661c"</span>
+</span></code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="nv">my_vopay_key</span><span class="o">=</span><span class="s2">"3da541559918a808c2402bba5012f6c60b27661c"</span>
+<span class="nv">my_vopay_secret</span><span class="o">=</span><span class="s2">"OTEyZWM4MDNiMmNINDk="</span>
+<span class="nv">formatted_date</span><span class="o">=</span><span class="si">$(</span><span class="nb">date</span> +%Y-%m-%d<span class="si">)</span>
+<span class="nv">my_vopay_auth_str</span><span class="o">=</span><span class="nv">$my_vopay_key$my_vopay_secret$formatted_date</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="n">my_vopay_key</span> <span class="o">=</span> <span class="s">"3da541559918a808c2402bba5012f6c60b27661c"</span>
 <span class="n">my_vopay_secret</span> <span class="o">=</span> <span class="s">"OTEyZWM4MDNiMmNINDk="</span>
 <span class="n">formatted_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">datetime</span><span class="p">.</span><span class="n">now</span><span class="p">().</span><span class="n">strftime</span><span class="p">(</span><span class="s">"%Y-%m-%d"</span><span class="p">)</span>
 <span class="n">my_vopay_auth_str</span> <span class="o">=</span> <span class="n">my_vopay_key</span> <span class="o">+</span> <span class="n">my_vopay_secret</span> <span class="o">+</span> <span class="n">formatted_date</span>
 
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="nv">my_vopay_key</span><span class="o">=</span><span class="s2">"3da541559918a808c2402bba5012f6c60b27661c"</span>
-<span class="nv">my_vopay_secret</span><span class="o">=</span><span class="s2">"OTEyZWM4MDNiMmNINDk="</span>
-<span class="nv">formatted_date</span><span class="o">=</span><span class="si">$(</span><span class="nb">date</span> +%Y-%m-%d<span class="si">)</span>
-<span class="nv">my_vopay_auth_str</span><span class="o">=</span><span class="nv">$my_vopay_key$my_vopay_secret$formatted_date</span>
 </code></pre></div>
 <blockquote>
-<p>Make sure to replace the example values with your API key and shared secret.</p>
+<p>Replace the example values with your API key and shared secret.</p>
 </blockquote>
 
-<p>Use the <strong>sandbox key</strong> and <strong>shared secret</strong> assigned to you by VoPay.</p>
+<p>We will now perform a &quot;cryptographic hash&quot; (or just &quot;hash&quot;) on this string. Specifically, the SHA1 hash. In Windows, we convert the above concatenated string into a binary representation. Then, we pass that to a hashing function.</p>
 
-<p>If you haven&#39;t already, <a href="https://vopay.com/api-sandbox/">request sandbox API credentials with VoPay</a>; then, substitute into the code snippets the credentials provided in your welcome email instead of the example values here. The sandbox account comes pre-populated with sample data to make testing more fun.</p>
-
-<p>We join the API key <strong><code>&quot;3da54…b27661c&quot;</code></strong> with the shared secret <strong> <code>&quot;OTEy…INDk=&quot;</code></strong> and the date in <strong><code>yyyy-MM-dd</code></strong> format to make the concatenated string:</p>
-
-<p><code>Authorization: meowmeowmeow</code></p>
-
+<p>See the code snippets to perform a SHA1 hash in your preferred language.</p>
+<div class="highlight"><pre class="highlight powershell tab-powershell"><code><span class="nv">$myVoPayAuthChars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$myVoPayAuthStr</span><span class="o">.</span><span class="nf">ToCharArray</span><span class="p">()</span><span class="w">
+</span><span class="nv">$myVoPayAuthBytes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$myVoPayAuthChars</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ForEach-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="n">System.Convert</span><span class="p">]::</span><span class="n">ToByte</span><span class="p">(</span><span class="bp">$_</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="nv">$myVoPayAuthStream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">IO.MemoryStream</span><span class="p">]::</span><span class="n">new</span><span class="p">(</span><span class="nv">$myVoPayAuthBytes</span><span class="p">)</span><span class="w">  </span><span class="c"># Note: Reading changes the stream position</span><span class="w">
+</span><span class="nv">$myVoPayHash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-FileHash</span><span class="w"> </span><span class="nt">-InputStream</span><span class="w"> </span><span class="nv">$myVoPayAuthStream</span><span class="w"> </span><span class="nt">-Algorithm</span><span class="w"> </span><span class="nx">SHA1</span><span class="w">
+</span><span class="nv">$myVoPaySig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$myVoPayHash</span><span class="o">.</span><span class="nf">Hash</span><span class="o">.</span><span class="nf">ToLowerInvariant</span><span class="p">()</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="nv">my_vopay_sig</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="nt">-n</span> <span class="nv">$my_vopay_auth_str</span> | <span class="nb">sha1sum</span> | <span class="nb">awk</span> <span class="s1">'{print $1}'</span><span class="si">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="n">my_vopay_sig</span> <span class="o">=</span> <span class="n">hashlib</span><span class="p">.</span><span class="n">sha1</span><span class="p">(</span><span class="n">my_vopay_auth_str</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)).</span><span class="n">hexdigest</span><span class="p">()</span>
+</code></pre></div>
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+To get these code snippets working with your credentials, put your
+<ul>
+<li>API key instead of <code>3da541559918a808c2402bba5012f6c60b27661c</code></li>
+<li>API shared secret <code>OTEyZWM4MDNiMmNINDk=</code> with your</li>
+<li>username instead of <code>daniella.nkechi@example.com</code> </li>
+</ul>
 </aside>
+
+<p>We will call the result our &quot;signature&quot;. Let&#39;s see if we can use the signature to receive some information from the sandbox. For this, we also need your sandbox username. We will use the sandbox username as the <code>AccountID</code> in all our API testing.</p>
+<div class="highlight"><pre class="highlight powershell tab-powershell"><code><span class="nv">$myVoPayAccountID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"daniella.nkechi@example.com"</span><span class="w">
+</span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="nt">-Method</span><span class="w"> </span><span class="nx">Get</span><span class="w"> </span><span class="nt">-Uri</span><span class="w"> </span><span class="s2">"https://earthnode-dev.vopay.com/api/v2/account/balance?AccountID=</span><span class="nv">$myVoPayAccountID</span><span class="s2">&amp;Key=</span><span class="nv">$myVoPayKey</span><span class="s2">&amp;Signature=</span><span class="nv">$myVoPaySig</span><span class="s2">&amp;Currency=CAD"</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="nv">my_vopay_account_id</span><span class="o">=</span><span class="s2">"daniella.nkechi@example.com"</span>
+curl <span class="nt">-s</span> <span class="nt">-X</span> GET <span class="s2">"https://earthnode-dev.vopay.com/api/v2/account/balance?AccountID=</span><span class="nv">$my_vopay_account_id</span><span class="s2">&amp;Key=</span><span class="nv">$my_vopay_key</span><span class="s2">&amp;Signature=</span><span class="nv">$my_vopay_sig</span><span class="s2">&amp;Currency=CAD"</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="n">my_vopay_account_id</span><span class="o">=</span><span class="s">"daniella.nkechi@example.com"</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://earthnode-dev.vopay.com/api/v2/account/balance?AccountID=%s&amp;Key=%s&amp;Signature=%s&amp;Currency=CAD"</span> <span class="o">%</span> <span class="p">(</span><span class="n">my_vopay_account_id</span><span class="p">,</span> <span class="n">my_vopay_key</span><span class="p">,</span> <span class="n">my_vopay_sig</span><span class="p">))</span>
+</code></pre></div>
+<p>The result:</p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"Success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"ErrorMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"AccountBalance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"45286.00"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"PendingFunds"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"SecurityDeposit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5000.00"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"AvailableImmediately"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"AvailableFunds"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40286.00"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CAD"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<aside class="success">We queried the VoPay [account/balance endpoint](https://docs.vopay.com/v2/vopay-api-reference/ref#accountbalanceget) to retrieve the current account balance for our sandbox account.</aside>
 <h2 id='kittens'>Kittens</h2><h2 id='get-all-kittens'>Get All Kittens</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
 
 <span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
@@ -574,8 +613,8 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
                 <a href="#" data-language-name="powershell">powershell</a>
+                <a href="#" data-language-name="shell">shell</a>
                 <a href="#" data-language-name="python">python</a>
           </div>
       </div>
