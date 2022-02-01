@@ -116,13 +116,15 @@ r = requests.get("https://earthnode-dev.vopay.com/api/v2/account/balance?Account
 {
   "Success": true,
   "ErrorMessage": "",
-  "AccountBalance": "45286.00",
-  "PendingFunds": "0.00",
-  "SecurityDeposit": "5000.00",
+  "AccountBalance": "3000.00",
+  "PendingFunds": "700.00",
+  "SecurityDeposit": "1000.00",
   "AvailableImmediately": "0.00",
-  "AvailableFunds": "40286.00",
+  "AvailableFunds": "1300.00",
   "Currency": "CAD"
 }
+
+To send out, we cannot exceed the available funds. Imagine we want to make a $2,000 transaction.
 ```
 
 <aside class="success">We queried the VoPay <a href="https://docs.vopay.com/v2/vopay-api-reference/ref#accountbalanceget" target="_blank"><code>GET</code> account/balance endpoint</a> to retrieve the current account balance for our sandbox account.</aside>
@@ -170,6 +172,65 @@ VoPay does not do any currency conversions. The balance returned is the balance 
 
 ## Funding your account
 
-To fund our account, we will need to **deposit** funds into our wallet. We can do this by making a `POST` request to the `/api/v2/eft/fund` endpoint. We will use the `POST` method because we are depositing funds into our wallet. These requests can take up to three (3) business days to clear.
+To fund our account, we will need to **deposit** funds into our wallet. This is like receiving a check to cash. We can do this by making a `POST` request to the `/api/v2/eft/fund` endpoint. We will use the `POST` method because we are depositing funds into our wallet. These requests can take up to three (3) business days to clear. Name, address, amount, bank account. The amount funded will appear in the pending until the check is cleared. Available funds will not change immediately, but `AccountBalance` will reflect the new balance.
 
-Alternatively, we can fund our wallet by making an Interac payment request. Again, we will use the `POST` method to make the request, but this time we query the `/api/v2/interac/money-request` endpoint. With Interac transfer, funds clear as soon as money request is accepted.
+Alternatively, we can fund our wallet by making an Interac payment request. Again, we will use the `POST` method to make the request, but this time we query the `/api/v2/interac/money-request` endpoint. With Interac transfer, the `AvailableFunds` again immediately reflect the pending, but funds clear as soon as money request is accepted.
+
+Preview feature: Fund-my-account. Same as EFT fund, except it uses your personal bank account instead of asking for the account.
+
+## EFT Withdrawl
+
+Sending to another person's bank account. Like sending a check.
+
+## E-Transfer
+
+Sending Interac money to another person by email or SMS. No bank details needed.
+
+---
+
+## Transaction lifecycle
+
+How a transaction goes from submitted to completed for various types of transactions.
+
+### Transaction status
+
+- GET account/transactions
+  - Pass in the transaction ID
+### Webhooks
+
+Rather than requesting from us, we will tell you when a transaction status changes.
+## Scheduling transactions
+
+Just EFT transactions.
+
+- One-time
+- Recurring
+
+## Intelligent EFT (iQ11)
+
+- Generating iframe
+- Different settings
+- Connect bank account online as opposed to entering info manually
+- Embedding iframe into website.
+
+## Paylink
+
+Get a link to iframe in an email. See https://docs.vopay.com/v2/docs/paylink and https://docs.vopay.com/v2/vopay-api-reference/ref#eftpaylinkpost
+
+## What can go wrong
+
+### Flag (duplicate)
+
+### NSF (fail)
+
+### Invalid account information
+
+## How to refund, cancel, remove flags
+
+---
+
+## Client accounts
+
+### Network among clients
+
+### Different transaction flows between clients
