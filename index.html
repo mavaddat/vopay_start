@@ -403,13 +403,15 @@ curl <span class="nt">-s</span> <span class="nt">-X</span> GET <span class="s2">
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"Success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="nl">"ErrorMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"AccountBalance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"45286.00"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"PendingFunds"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"SecurityDeposit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5000.00"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"AccountBalance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3000.00"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"PendingFunds"</span><span class="p">:</span><span class="w"> </span><span class="s2">"700.00"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"SecurityDeposit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1000.00"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"AvailableImmediately"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"AvailableFunds"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40286.00"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"AvailableFunds"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1300.00"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"Currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CAD"</span><span class="w">
 </span><span class="p">}</span><span class="w">
+
+</span><span class="err">To</span><span class="w"> </span><span class="err">send</span><span class="w"> </span><span class="err">out,</span><span class="w"> </span><span class="err">we</span><span class="w"> </span><span class="err">cannot</span><span class="w"> </span><span class="err">exceed</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">available</span><span class="w"> </span><span class="err">funds.</span><span class="w"> </span><span class="err">Imagine</span><span class="w"> </span><span class="err">we</span><span class="w"> </span><span class="err">want</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">make</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">$</span><span class="mi">2</span><span class="err">,</span><span class="mi">000</span><span class="w"> </span><span class="err">transaction.</span><span class="w">
 </span></code></pre></div>
 <aside class="success">We queried the VoPay <a href="https://docs.vopay.com/v2/vopay-api-reference/ref#accountbalanceget" target="_blank"><code>GET</code> account/balance endpoint</a> to retrieve the current account balance for our sandbox account.</aside>
 
@@ -464,10 +466,49 @@ curl <span class="nt">-s</span> <span class="nt">-X</span> GET <span class="s2">
 VoPay does not do any currency conversions. The balance returned is the balance of the account in the currency specified in the `currency` query parameter.
 </aside>
 <h2 id='funding-your-account'>Funding your account</h2>
-<p>To fund our account, we will need to <strong>deposit</strong> funds into our wallet. We can do this by making a <code>POST</code> request to the <code>/api/v2/eft/fund</code> endpoint. We will use the <code>POST</code> method because we are depositing funds into our wallet. These requests can take up to three (3) business days to clear.</p>
+<p>To fund our account, we will need to <strong>deposit</strong> funds into our wallet. This is like receiving a check to cash. We can do this by making a <code>POST</code> request to the <code>/api/v2/eft/fund</code> endpoint. We will use the <code>POST</code> method because we are depositing funds into our wallet. These requests can take up to three (3) business days to clear. Name, address, amount, bank account. The amount funded will appear in the pending until the check is cleared. Available funds will not change immediately, but <code>AccountBalance</code> will reflect the new balance.</p>
 
-<p>Alternatively, we can fund our wallet by making an Interac payment request. Again, we will use the <code>POST</code> method to make the request, but this time we query the <code>/api/v2/interac/money-request</code> endpoint. With Interac transfer, funds clear as soon as money request is accepted.</p>
-<h1 id='errors'>Errors</h1>
+<p>Alternatively, we can fund our wallet by making an Interac payment request. Again, we will use the <code>POST</code> method to make the request, but this time we query the <code>/api/v2/interac/money-request</code> endpoint. With Interac transfer, the <code>AvailableFunds</code> again immediately reflect the pending, but funds clear as soon as money request is accepted.</p>
+
+<p>Preview feature: Fund-my-account. Same as EFT fund, except it uses your personal bank account instead of asking for the account.</p>
+<h2 id='eft-withdrawl'>EFT Withdrawl</h2>
+<p>Sending to another person&#39;s bank account. Like sending a check.</p>
+<h2 id='e-transfer'>E-Transfer</h2>
+<p>Sending Interac money to another person by email or SMS. No bank details needed.</p>
+
+<hr>
+<h2 id='transaction-lifecycle'>Transaction lifecycle</h2>
+<p>How a transaction goes from submitted to completed for various types of transactions.</p>
+<h3 id='transaction-status'>Transaction status</h3>
+<ul>
+<li>GET account/transactions
+
+<ul>
+<li>Pass in the transaction ID
+### Webhooks</li>
+</ul></li>
+</ul>
+
+<p>Rather than requesting from us, we will tell you when a transaction status changes.</p>
+<h2 id='scheduling-transactions'>Scheduling transactions</h2>
+<p>Just EFT transactions.</p>
+
+<ul>
+<li>One-time</li>
+<li>Recurring</li>
+</ul>
+<h2 id='intelligent-eft-iq11'>Intelligent EFT (iQ11)</h2>
+<ul>
+<li>Generating iframe</li>
+<li>Different settings</li>
+<li>Connect bank account online as opposed to entering info manually</li>
+<li>Embedding iframe into website.</li>
+</ul>
+<h2 id='paylink'>Paylink</h2>
+<p>Get a link to iframe in an email. See https://docs.vopay.com/v2/docs/paylink and https://docs.vopay.com/v2/vopay-api-reference/ref#eftpaylinkpost</p>
+<h2 id='what-can-go-wrong'>What can go wrong</h2><h3 id='flag-duplicate'>Flag (duplicate)</h3><h3 id='nsf-fail'>NSF (fail)</h3><h3 id='invalid-account-information'>Invalid account information</h3><h2 id='how-to-refund-cancel-remove-flags'>How to refund, cancel, remove flags</h2>
+<hr>
+<h2 id='client-accounts'>Client accounts</h2><h3 id='network-among-clients'>Network among clients</h3><h3 id='different-transaction-flows-between-clients'>Different transaction flows between clients</h3><h1 id='errors'>Errors</h1>
 <aside class="notice">
 This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
 </aside>
