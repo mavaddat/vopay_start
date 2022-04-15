@@ -1,0 +1,14 @@
+{
+    "powershell.powerShellDefaultVersion": "Core",
+    "cSpell.words": [
+        "chequing",
+        "Flinks",
+        "hashlib",
+        "hexdigest",
+        "Idempotency",
+        "Interac",
+        "Inverite",
+        "Paylink",
+        "signaturediagram"
+    ]
+}

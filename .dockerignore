@@ -1,12 +1,15 @@
 .git/
 .github/
-build/
 .editorconfig
 .gitattributes
 .gitignore
 CHANGELOG.md
 CODE_OF_CONDUCT.md
-deploy.sh
 font-selection.json
 README.md
 Vagrantfile
+node_modules/
+npm-debug.log
+_site/
+source/slate/js/lib/*.min.js
+source/slate/css/*.css

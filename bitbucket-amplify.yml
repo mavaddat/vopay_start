@@ -1,0 +1,56 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: >
+  Build source code from Bitbucket with Amplify.
+
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      - Label:
+          default: "Bitbucket Configuration"
+        Parameters:
+          - pAccessToken
+          - pRepoUrl
+          - pBranchName
+      - Label:
+          default: "AWS Amplify Configuration"
+        Parameters:
+          - pProjectName
+    ParameterLabels:
+      pBranchName:
+        default: "Branch name"
+      pRepoUrl:
+        default: "Repository URL"
+      pAccessToken:
+        default: "Access token"
+      pProjectName:
+        default: "Project name"
+
+Parameters:
+  pBranchName:
+    Type: String
+    Description: Name of the branch from Bitbucket to pull source code from
+  pProjectName:
+    Type: String
+    Description: Name to assign to the AWS Amplify project
+  pAccessToken:
+    Type: String
+    Description: Bitbucket repository access token
+    NoEcho: true
+  pRepoUrl:
+    Type: String
+    Description: Bitbucket repository URL
+
+Resources:
+  rAmplifyApp:
+    Type: AWS::Amplify::App
+    Properties:
+      Name: !Ref pProjectName
+      Repository: !Ref pRepoUrl
+      OauthToken: !Ref pAccessToken
+  rAmplifyBranch:
+    Type: AWS::Amplify::Branch
+    Properties:
+      BranchName: !Ref pBranchName
+      AppId: !GetAtt rAmplifyApp.AppId
+      EnableAutoBuild: true
