@@ -17,7 +17,15 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: '17'
-    
+
+    - name: JFrog .npmrc
+      run: |
+        echo "registry=https://mavaddat.jfrog.io/artifactory/api/npm/default-npm-remote/" > .npmrc
+        echo "_authToken=${NPM_TOKEN}" >> .npmrc
+        echo "email=${NPM_EMAIL}" >> .npmrc
+        echo "always-auth=true" >> .npmrc
+
+
     - name: Lint
       run: |
         npm install --save-dev eslint && npm install eslint-config-google@latest && npm install --save-dev eslint-plugin-markdown
