@@ -18,13 +18,12 @@ jobs:
       with:
         node-version: '17'
 
-    - name: JFrog .npmrc
+    - name: Config
       run: |
-        echo "registry=https://mavaddat.jfrog.io/artifactory/api/npm/default-npm-remote/" > .npmrc
-        echo "_authToken=${NPM_TOKEN}" >> .npmrc
-        echo "email=${NPM_EMAIL}" >> .npmrc
-        echo "always-auth=true" >> .npmrc
-
+        echo "registry=https://mavaddat.jfrog.io/artifactory/api/npm/default-npm-remote/" > $HOME/.npmrc
+        echo "_authToken=${NPM_TOKEN}" >> $HOME/.npmrc
+        echo "email=${NPM_EMAIL}" >> $HOME/.npmrc
+        echo "always-auth=true" >> $HOME/.npmrc
 
     - name: Lint
       run: |
