@@ -24,6 +24,7 @@ jobs:
         echo "_authToken=${NPM_TOKEN}" >> $HOME/.npmrc
         echo "email=${NPM_EMAIL}" >> $HOME/.npmrc
         echo "always-auth=true" >> $HOME/.npmrc
+        npm install
 
     - name: Lint
       run: |
@@ -35,11 +36,8 @@ jobs:
         reporter: github-pr-review
         eslint_flags: .*.js source/*.js
 
-
-    - name: npm install, build and test
-      run: |
-        npm install
-        npm run build.sass && npm run build.11ty
+    - name: npm build and deploy
+      run: npm run build.sass && npm run build.11ty
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@v4.3.0
       with:
