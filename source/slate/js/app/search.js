@@ -76,9 +76,9 @@
 
       if (results.length) {
         searchResults.empty();
-        $.each(results, function (index, result) {
+        $.each(results, function (_index, result) {
           var elem = document.getElementById(result.ref);
-          searchResults.append("<li><a href='#" + result.ref + "'>" + $(elem).text() + "</a></li>");
+          searchResults.append("<li><a href='#" + result.ref + "'>" + $.find(elem).text() + "</a></li>");
         });
         highlight.call(searchInput);
       } else {
