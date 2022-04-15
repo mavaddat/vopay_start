@@ -1,4 +1,4 @@
-aname: Build
+name: Build
 
 on:
   push:
@@ -8,35 +8,33 @@ on:
 
 jobs:
   test:
-    name: Test on node ${{ matrix.node_version }} and ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        node_version: ['17']
-        os: [ubuntu-latest]
+    name: Test
+    runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node_version }}
-      uses: actions/setup-node@v1
+    - uses: actions/checkout@v3
+    - name: Use Node.js 17
+      uses: actions/setup-node@v2
       with:
-        node-version: ${{ matrix.node_version }}
+        node-version: '17'
     
     - name: Lint
       run: |
         npm install --save-dev eslint && npm install eslint-config-google@latest && npm install --save-dev eslint-plugin-markdown
         echo 'module.exports = {\n\t"env": {\n\t\t"browser": true,\n\t\t"es2021": true\n\t},\n\t"extends": [\n\t\t"google"\n\t],\n\t"parserOptions": {\n\t\t"ecmaVersion": "latest",\n\t\t"sourceType": "module"\n\t},\n\t"rules": {\n\t}\n}\n' > .eslintrc.js
-        npx eslint .*.js source/*.js --format checkstyle --output-file checkstyle.xml
-    - uses: nikitasavinov/checkstyle-action@master
+    - uses: reviewdog/action-eslint@v1
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        checkstyle_config: .eslintrc.js
-        reporter: checkstyle
-        tool_name: eslint
+        reporter: github-pr-review
+        eslint_flags: .*.js source/*.js
 
 
     - name: npm install, build and test
       run: |
         npm install
-        npm run build --if-present
-        npm test
+        npm run build.sass && npm run build.11ty
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@v4.3.0
+      with:
+        branch: gh-pages
+        folder: _site

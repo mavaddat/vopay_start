@@ -28,7 +28,7 @@ function image_tag(src, alt) {
 }
 
 function logo_image_tag() {
-  return '<img src="slate/img/logo.png" alt="Logo" class="logo">';
+  return '<img src="slate/img/vopay.svg" alt="Logo" class="logo">';
 }
 
 function toc_data(content, headingLevel) {

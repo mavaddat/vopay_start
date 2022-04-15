@@ -31,7 +31,7 @@ This guide will show you how to achieve programmatic financial transactions usin
 
 First, this guide will examine how each request is authenticated.
 
-![Signature calculation process](images/signaturediagram.svg)
+![Signature calculation process](slate/img/signaturediagram.svg)
 
 ## Authentication
 
@@ -47,11 +47,11 @@ Because the signature requires digesting the date, you need re-calculate it each
 
 By example, here is a shared secret and an API key with a current date:
 
-![Three example values concatenated together](images/secret.svg "This is the operation to concat your three example values ")
+![Three example values concatenated together](slate/img/secret.svg "This is the operation to concat your three example values ")
 
 These make the concatenated string:
 
-![The resulting string after concatenation](images/concat.svg "Colour-coded concatenated string")
+![The resulting string after concatenation](slate/img/concat.svg "Colour-coded concatenated string")
 
 Then, you will hash the resulting string using SHA1. For the example, the resulting hash is:
 
@@ -208,7 +208,7 @@ Effectively, your VoPay account acts like a cloud-hosted virtual wallet.
 
 Before making outbound transactions, wallets need to make funds available. To send money then, you will **fund** your wallet.
 
-![Digital wallet](images/wallet.svg)
+![Digital wallet](slate/img/wallet.svg)
 
 You can do this by making a `POST` request to the `/api/v2/eft/fund` endpoint. This endpoint debits funds from a bank account that you specify in the request parameters.
 
