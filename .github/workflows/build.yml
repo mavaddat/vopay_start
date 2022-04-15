@@ -20,10 +20,10 @@ jobs:
 
     - name: Config
       run: |
-        echo "registry=https://mavaddat.jfrog.io/artifactory/api/npm/default-npm-remote/" > $HOME/.npmrc
-        echo "_authToken=${NPM_TOKEN}" >> $HOME/.npmrc
-        echo "email=${NPM_EMAIL}" >> $HOME/.npmrc
-        echo "always-auth=true" >> $HOME/.npmrc
+        echo "registry=https://mavaddat.jfrog.io/artifactory/api/npm/default-npm-remote/" > ${{ github.workspace }}/.npmrc
+        echo "_authToken=${NPM_TOKEN}" >> ${{ github.workspace }}/.npmrc
+        echo "email=${NPM_EMAIL}" >> ${{ github.workspace }}/.npmrc
+        echo "always-auth=true" >> ${{ github.workspace }}/.npmrc
         npm install
 
     - name: Lint
