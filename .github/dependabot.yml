@@ -4,6 +4,6 @@ updates:
   directory: "/"
   schedule:
     interval: daily
-  open-pull-requests-limit: 10
+  open-pull-requests-limit: 25
   target-branch: main
   versioning-strategy: increase-if-necessary
