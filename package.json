@@ -43,7 +43,7 @@
     "imagesloaded": "^5.0.0",
     "jquery": "^3.6.0",
     "lunr": "^2.3.9",
-    "markdown-it": "^12.0.6",
+    "markdown-it": "^13.0.0",
     "markdown-it-anchor": "^8.6.2",
     "markdown-it-prism": "^2.1.6",
     "npm-check-updates": "^12.5.9",
