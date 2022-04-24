@@ -38,6 +38,7 @@
   "dependencies": {
     "@11ty/eleventy": "^1.0.0",
     "@11ty/eleventy-plugin-syntaxhighlight": "^4.0.0",
+    "async": "^3.2.3",
     "cheerio": "^1.0.0-rc.9",
     "cross-var-no-babel": "^1.2.0",
     "imagesloaded": "^5.0.0",
