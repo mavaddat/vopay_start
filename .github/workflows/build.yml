@@ -17,7 +17,7 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: '17'
-    - uses: ahmadnassri/actions-dependabot-auto-merge@v2
+    - uses: ahmadnassri/action-dependabot-auto-merge@v2
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
 
