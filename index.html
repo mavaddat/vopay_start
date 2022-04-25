@@ -1,559 +1,445 @@
 
+
 <!doctype html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32-84e60f9d.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16-8ebd69c8.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="mask-icon" href="safari-pinned-tab-29e94408.svg" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
-        <meta
-            name="description"
-            content="Getting Started with VoPay API's"
-        >
     <title>Getting Started</title>
 
-    <style media="screen">
-      .highlight table td { padding: 5px; }
-.highlight table pre { margin: 0; }
-.highlight .gh {
-  color: #999999;
-}
-.highlight .sr {
-  color: #f6aa11;
-}
-.highlight .go {
-  color: #888888;
-}
-.highlight .gp {
-  color: #555555;
-}
-.highlight .gs {
-}
-.highlight .gu {
-  color: #aaaaaa;
-}
-.highlight .nb {
-  color: #f6aa11;
-}
-.highlight .cm {
-  color: #75715e;
-}
-.highlight .cp {
-  color: #75715e;
-}
-.highlight .c1 {
-  color: #75715e;
-}
-.highlight .cs {
-  color: #75715e;
-}
-.highlight .c, .highlight .ch, .highlight .cd, .highlight .cpf {
-  color: #75715e;
-}
-.highlight .err {
-  color: #960050;
-}
-.highlight .gr {
-  color: #960050;
-}
-.highlight .gt {
-  color: #960050;
-}
-.highlight .gd {
-  color: #49483e;
-}
-.highlight .gi {
-  color: #49483e;
-}
-.highlight .ge {
-  color: #49483e;
-}
-.highlight .kc {
-  color: #66d9ef;
-}
-.highlight .kd {
-  color: #66d9ef;
-}
-.highlight .kr {
-  color: #66d9ef;
-}
-.highlight .no {
-  color: #66d9ef;
-}
-.highlight .kt {
-  color: #66d9ef;
-}
-.highlight .mf {
-  color: #ae81ff;
-}
-.highlight .mh {
-  color: #ae81ff;
-}
-.highlight .il {
-  color: #ae81ff;
-}
-.highlight .mi {
-  color: #ae81ff;
-}
-.highlight .mo {
-  color: #ae81ff;
-}
-.highlight .m, .highlight .mb, .highlight .mx {
-  color: #ae81ff;
-}
-.highlight .sc {
-  color: #ae81ff;
-}
-.highlight .se {
-  color: #ae81ff;
-}
-.highlight .ss {
-  color: #ae81ff;
-}
-.highlight .sd {
-  color: #e6db74;
-}
-.highlight .s2 {
-  color: #e6db74;
-}
-.highlight .sb {
-  color: #e6db74;
-}
-.highlight .sh {
-  color: #e6db74;
-}
-.highlight .si {
-  color: #e6db74;
-}
-.highlight .sx {
-  color: #e6db74;
-}
-.highlight .s1 {
-  color: #e6db74;
-}
-.highlight .s, .highlight .sa, .highlight .dl {
-  color: #e6db74;
-}
-.highlight .na {
-  color: #a6e22e;
-}
-.highlight .nc {
-  color: #a6e22e;
-}
-.highlight .nd {
-  color: #a6e22e;
-}
-.highlight .ne {
-  color: #a6e22e;
-}
-.highlight .nf, .highlight .fm {
-  color: #a6e22e;
-}
-.highlight .vc {
-  color: #ffffff;
-}
-.highlight .nn {
-  color: #ffffff;
-}
-.highlight .ni {
-  color: #ffffff;
-}
-.highlight .bp {
-  color: #ffffff;
-}
-.highlight .vg {
-  color: #ffffff;
-}
-.highlight .vi {
-  color: #ffffff;
-}
-.highlight .nv, .highlight .vm {
-  color: #ffffff;
-}
-.highlight .w {
-  color: #ffffff;
-}
-.highlight {
-  color: #ffffff;
-}
-.highlight .n, .highlight .py, .highlight .nx {
-  color: #ffffff;
-}
-.highlight .nl {
-  color: #f92672;
-}
-.highlight .ow {
-  color: #f92672;
-}
-.highlight .nt {
-  color: #f92672;
-}
-.highlight .k, .highlight .kv {
-  color: #f92672;
-}
-.highlight .kn {
-  color: #f92672;
-}
-.highlight .kp {
-  color: #f92672;
-}
-.highlight .o {
-  color: #f92672;
-}
-    </style>
-    <style media="print">
-      * {
-        -webkit-transition:none!important;
-        transition:none!important;
+    <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" media="screen" rel="stylesheet">
+    <link href="slate/css/print.css" media="print" rel="stylesheet">
+    <link href="slate/css/screen.css" media="screen" rel="stylesheet">
+    <script src="slate/js/lib/jquery.min.js"></script>
+    <script src="slate/js/lib/jquery.highlight.js"></script>
+    <script src="slate/js/lib/energize.js"></script>
+    <script src="slate/js/lib/imagesloaded.min.js"></script>
+    <script src="slate/js/lib/lunr.min.js"></script>
+    <script src="slate/js/app/lang.js"></script>
+    <script src="slate/js/app/toc.js"></script>
+    
+    <script src="slate/js/app/search.js"></script>
+    
+    
+    <script src="slate/js/app/copy.js"></script>
+    
+    <script type="text/javascript">
+      function adjustLanguageSelectorWidth() {
+        const elem = $('.dark-box > .lang-selector');
+        elem.width(elem.parent().width());
       }
-      .highlight table td { padding: 5px; }
-.highlight table pre { margin: 0; }
-.highlight, .highlight .w {
-  color: #586e75;
-}
-.highlight .err {
-  color: #002b36;
-  background-color: #dc322f;
-}
-.highlight .c, .highlight .ch, .highlight .cd, .highlight .cm, .highlight .cpf, .highlight .c1, .highlight .cs {
-  color: #657b83;
-}
-.highlight .cp {
-  color: #b58900;
-}
-.highlight .nt {
-  color: #b58900;
-}
-.highlight .o, .highlight .ow {
-  color: #93a1a1;
-}
-.highlight .p, .highlight .pi {
-  color: #93a1a1;
-}
-.highlight .gi {
-  color: #859900;
-}
-.highlight .gd {
-  color: #dc322f;
-}
-.highlight .gh {
-  color: #268bd2;
-  background-color: #002b36;
-  font-weight: bold;
-}
-.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
-  color: #6c71c4;
-}
-.highlight .kc {
-  color: #cb4b16;
-}
-.highlight .kt {
-  color: #cb4b16;
-}
-.highlight .kd {
-  color: #cb4b16;
-}
-.highlight .s, .highlight .sb, .highlight .sc, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
-  color: #859900;
-}
-.highlight .sa {
-  color: #6c71c4;
-}
-.highlight .sr {
-  color: #2aa198;
-}
-.highlight .si {
-  color: #d33682;
-}
-.highlight .se {
-  color: #d33682;
-}
-.highlight .nn {
-  color: #b58900;
-}
-.highlight .nc {
-  color: #b58900;
-}
-.highlight .no {
-  color: #b58900;
-}
-.highlight .na {
-  color: #268bd2;
-}
-.highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx {
-  color: #859900;
-}
-.highlight .ss {
-  color: #859900;
-}
-    </style>
-    <link href="stylesheets/screen-47a5d8d9.css" rel="stylesheet" media="screen" />
-    <link href="stylesheets/print-550f9eb8.css" rel="stylesheet" media="print" />
-      <script src="javascripts/all-25cc4a4f.js"></script>
-
-    <script>
-      $(function() { setupCodeCopy(); });
+      $(function() {
+        loadToc($('#toc'), '.toc-link', '.toc-list-h2, .toc-list-h3, .toc-list-h4, .toc-list-h5, .toc-list-h6', 10);
+        setupLanguages($('body').data('languages'));
+        $('.content').imagesLoaded( function() {
+          recacheHeights();
+          refreshToc();
+        });
+        $(window).resize(function() {
+          adjustLanguageSelectorWidth();
+        });
+        adjustLanguageSelectorWidth();
+      });
+      window.onpopstate = function() {
+        activateLanguage(getLanguageFromQueryString());
+      };
     </script>
+    <!-- slate; content for the head element from source/includes/head.ejs -->
+<meta name="theme-color" content="#F3F7F9">
+
   </head>
 
-  <body class="index" data-languages="[&quot;powershell&quot;,&quot;shell&quot;,&quot;python&quot;]">
+  <body data-languages="[&quot;powershell&quot;,&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;php&quot;,&quot;csharp&quot;,&quot;javascript&quot;,&quot;golang&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
-        <img src="images/navbar-cad8cdcb.png" alt="" />
+        <img src="slate/img/navbar.png" alt="Navigation">
       </span>
     </a>
     <div class="toc-wrapper">
-      <div class="image-logo">
-        <img src="images/vopay-bc7eeb54.svg" class="logo" alt="" />
-      </div>
+      <img src="slate/img/vopay.svg" alt="Logo" class="logo">
+      
         <div class="lang-selector">
+          
+            
               <a href="#" data-language-name="powershell">powershell</a>
+            
+          
+            
               <a href="#" data-language-name="shell">shell</a>
+            
+          
+            
+              <a href="#" data-language-name="ruby">ruby</a>
+            
+          
+            
               <a href="#" data-language-name="python">python</a>
+            
+          
+            
+              <a href="#" data-language-name="php">php</a>
+            
+          
+            
+              <a href="#" data-language-name="csharp">csharp</a>
+            
+          
+            
+              <a href="#" data-language-name="javascript">javascript</a>
+            
+          
+            
+              <a href="#" data-language-name="golang">golang</a>
+            
+          
         </div>
+      
+      
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
         </div>
         <ul class="search-results"></ul>
-      <ul id="toc" class="toc-list-h1">
-          <li>
-            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
-          </li>
-      </ul>
+      
+
+      
+
+      <div id="toc" class="toc-list-h1">
+	  	<ul class="toc-list-h1">
+        
+		</ul>
+      </div>
+      
         <ul class="toc-footer">
+          
             <li><a href='https://vopay.com/api-sandbox/'>Sign Up for a Developer Key</a></li>
+          
         </ul>
+      
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h2 id='getting-started'>Getting Started</h2>
-<p>This guide will describe first steps to execute financial transactions using our API endpoints. To get a comfortable, we&#39;ll use our system shell (Windows PowerShell, macOS/linux shell, or Python 3) to make a few basic queries and send some test data.</p>
-
-<p>First, though, we need to understand how each request is authenticated.</p>
-
-<p id="crop"><img id="handshake" src="images/handshake-8563f137.gif" alt="Handshake to authenticate" title="Authentication is like a secret handshake &mdash; to receive JSON"></p>
-<h2 id='authentication'>Authentication</h2>
-<p>When you sign up for an account, VoPay sends you two pieces of information. The first is a <strong>shared secret</strong>; the second is the <strong>API key</strong>. To authenticate, we will be joining or <em>concatenating</em> these two pieces of information (<em>strings</em>) together with the current date.</p>
-
-<p>Here is a concatenation with a shared secret and an API key:</p>
-
-<p><img src="images/secret-5501c857.svg" title="This is the operation to concat our three example values " alt="Three example values concatenated together" /></p>
-
-<p>We join the API key <strong><code style="color: #1111fe !important;">&quot;3da54…b27661c&quot;</code></strong> with the shared secret <strong><code style="color: #55fd55 !important;">&quot;OTEy…INDk=&quot;</code></strong> and the date in <strong><code style="color: #9e0dfe !important;">yyyy-MM-dd</code></strong> format to make the concatenated string:</p>
-
-<p><img src="images/concat-6a334634.svg" title="Colour-coded concatenated string" alt="The resulting string after concatenation" /></p>
-
-<p>Find the <strong>sandbox key</strong> and <strong>shared secret</strong> assigned to you by VoPay.</p>
-
+        <h2 id="getting-started" tabindex="-1">Getting Started</h2>
+<p>This guide will show you how to achieve programmatic financial transactions using VoPay’s API’s. To get a sense of outbound parameters and typical response content, you will make real queries and post transactions to a sandbox environment.</p>
+<p>First, this guide will examine how each request is authenticated.</p>
+<p><img src="slate/img/signaturediagram.svg" alt="Signature calculation process"></p>
+<h2 id="authentication" tabindex="-1">Authentication</h2>
+<p>When your sandbox is activated, VoPay will send you an <strong>account ID</strong>,a  <strong>shared secret</strong>, and <strong>API key</strong>.</p>
+<p>Concatenate the API key and the shared secret together with the current date, then hash the result using SHA1. This is your <strong>signature</strong>, which you will be daily re-calculating.</p>
 <aside class="notice">
-The sandbox is pre-populated with data to query. If you haven't already, <a href="https://vopay.com/api-sandbox/" target="_blank">request sandbox API credentials</a> with VoPay; then, substitute those credentials into the code snippets.
+Because the signature requires digesting the date, you need re-calculate it each day. That is why the signature should be a <em>method output</em> rather than a <em>constant</em> in your solution.
 </aside>
-
+<hr>
+<p>By example, here is a shared secret and an API key with a current date:</p>
+<p><img src="slate/img/secret.svg" alt="Three example values concatenated together" title="This is the operation to concat your three example values "></p>
+<p>These make the concatenated string:</p>
+<p><img src="slate/img/concat.svg" alt="The resulting string after concatenation" title="Colour-coded concatenated string"></p>
+<p>Then, you will hash the resulting string using SHA1. For the example, the resulting hash is:</p>
+<table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Hash</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SHA1</td>
+<td><code>f69fe6fbd81b9008fbcc0ebdac5fc7a47e3beacf</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="coded-tutorial" tabindex="-1">Coded tutorial</h3>
+<p>Prepare to use the <strong>sandbox key</strong> and <strong>shared secret</strong> assigned to you by VoPay.</p>
+<aside class="notice">
+The sandbox is pre-populated with data to query. If you haven't already, <a href="https://vopay.com/api-sandbox/" target="_blank">request sandbox API credentials</a> with VoPay; then, substitute the credentials you receive into the code snippets.
+</aside>
 <blockquote>
 <p>Concatenation of the key, shared secret, and formatted date:</p>
 </blockquote>
-<div class="highlight"><pre class="highlight powershell tab-powershell"><code><span class="nv">$myVoPayKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"3da541559918a808c2402bba5012f6c60b27661c"</span><span class="w">
-</span><span class="nv">$myVoPaySecret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"OTEyZWM4MDNiMmNINDk="</span><span class="w">
-</span><span class="nv">$formattedDate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-Date</span><span class="w"> </span><span class="nt">-Format</span><span class="w"> </span><span class="s2">"yyyy-MM-dd"</span><span class="w">
-</span><span class="nv">$myVoPayAuthStr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$myVoPayKey</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$myVoPaySecret</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$formattedDate</span><span class="w">
-</span></code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="nv">my_vopay_key</span><span class="o">=</span><span class="s2">"3da541559918a808c2402bba5012f6c60b27661c"</span>
-<span class="nv">my_vopay_secret</span><span class="o">=</span><span class="s2">"OTEyZWM4MDNiMmNINDk="</span>
-<span class="nv">formatted_date</span><span class="o">=</span><span class="si">$(</span><span class="nb">date</span> +%Y-%m-%d<span class="si">)</span>
-<span class="nv">my_vopay_auth_str</span><span class="o">=</span><span class="nv">$my_vopay_key$my_vopay_secret$formatted_date</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="n">my_vopay_key</span> <span class="o">=</span> <span class="s">"3da541559918a808c2402bba5012f6c60b27661c"</span>
-<span class="n">my_vopay_secret</span> <span class="o">=</span> <span class="s">"OTEyZWM4MDNiMmNINDk="</span>
-<span class="n">formatted_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">datetime</span><span class="p">.</span><span class="n">now</span><span class="p">().</span><span class="n">strftime</span><span class="p">(</span><span class="s">"%Y-%m-%d"</span><span class="p">)</span>
-<span class="n">my_vopay_auth_str</span> <span class="o">=</span> <span class="n">my_vopay_key</span> <span class="o">+</span> <span class="n">my_vopay_secret</span> <span class="o">+</span> <span class="n">formatted_date</span>
-
-</code></pre></div>
-<p>We will now perform a &quot;cryptographic hash&quot; (or just &quot;hash&quot;) on this string. Specifically, the SHA1 hash.</p>
-
+<pre class="language-powershell"><code class="language-powershell"><span class="token variable">$KEY</span> = <span class="token string">"3da541559918a808c2402bba5012f6c60b27661c"</span><br><span class="token variable">$SECRET</span> = <span class="token string">"OTEyZWM4MDNiMmNINDk="</span><br><span class="token variable">$formattedDate</span> = <span class="token function">Get-Date</span> <span class="token operator">-</span>Format <span class="token string">"yyyy-MM-dd"</span><br><span class="token variable">$PreSig</span> = <span class="token variable">$KEY</span> <span class="token operator">+</span> <span class="token variable">$SECRET</span> <span class="token operator">+</span> <span class="token variable">$formattedDate</span></code></pre>
+<pre class="language-shell"><code class="language-shell"><span class="token builtin class-name">readonly</span> <span class="token assign-left variable">KEY</span><span class="token operator">=</span><span class="token string">"3da541559918a808c2402bba5012f6c60b27661c"</span><br><span class="token builtin class-name">readonly</span> <span class="token assign-left variable">SECRET</span><span class="token operator">=</span><span class="token string">"OTEyZWM4MDNiMmNINDk="</span><br><span class="token assign-left variable">formatted_date</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">date</span> +%Y-%m-%d<span class="token variable">)</span></span><br><span class="token assign-left variable">pre_sig</span><span class="token operator">=</span><span class="token variable">$KEY</span><span class="token variable">$SECRET</span><span class="token variable">$formatted_date</span></code></pre>
+<pre class="language-python"><code class="language-python">KEY <span class="token operator">=</span> <span class="token string">"3da541559918a808c2402bba5012f6c60b27661c"</span><br>SECRET <span class="token operator">=</span> <span class="token string">"OTEyZWM4MDNiMmNINDk="</span><br>formatted_date <span class="token operator">=</span> datetime<span class="token punctuation">.</span>datetime<span class="token punctuation">.</span>now<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>strftime<span class="token punctuation">(</span><span class="token string">"%Y-%m-%d"</span><span class="token punctuation">)</span><br>pre_sig <span class="token operator">=</span> KEY <span class="token operator">+</span> SECRET <span class="token operator">+</span> formatted_date</code></pre>
+<pre class="language-js"><code class="language-js"><span class="token keyword">const</span> <span class="token constant">KEY</span> <span class="token operator">=</span> <span class="token string">"3da541559918a808c2402bba5012f6c60b27661c"</span><br><span class="token keyword">const</span> <span class="token constant">SECRET</span> <span class="token operator">=</span> <span class="token string">"OTEyZWM4MDNiMmNINDk="</span><br><span class="token keyword">var</span> formatted_date <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toISOString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">)</span><br><span class="token keyword">var</span> pre_sig <span class="token operator">=</span> <span class="token constant">KEY</span> <span class="token operator">+</span> <span class="token constant">SECRET</span> <span class="token operator">+</span> formatted_date</code></pre>
+<pre class="language-ruby"><code class="language-ruby"><span class="token constant">KEY</span> <span class="token operator">=</span> <span class="token string-literal"><span class="token string">"3da541559918a808c2402bba5012f6c60b27661c"</span></span><br><span class="token constant">SECRET</span> <span class="token operator">=</span> <span class="token string-literal"><span class="token string">"OTEyZWM4MDNiMmNINDk="</span></span><br>formatted_date <span class="token operator">=</span> Date<span class="token punctuation">.</span>today<span class="token punctuation">.</span>strftime<span class="token punctuation">(</span><span class="token string-literal"><span class="token string">"%Y-%m-%d"</span></span><span class="token punctuation">)</span><br>pre_sig <span class="token operator">=</span> <span class="token constant">KEY</span> <span class="token operator">+</span> <span class="token constant">SECRET</span> <span class="token operator">+</span> formatted_date</code></pre>
+<pre class="language-php"><code class="language-php"><span class="token variable">$KEY</span> <span class="token operator">=</span> <span class="token string double-quoted-string">"3da541559918a808c2402bba5012f6c60b27661c"</span><br><span class="token variable">$SECRET</span> <span class="token operator">=</span> <span class="token string double-quoted-string">"OTEyZWM4MDNiMmNINDk="</span><br><span class="token variable">$formattedDate</span> <span class="token operator">=</span> <span class="token function">date</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"Y-m-d"</span><span class="token punctuation">)</span><br><span class="token variable">$PreSig</span> <span class="token operator">=</span> <span class="token variable">$KEY</span> <span class="token operator">+</span> <span class="token variable">$SECRET</span> <span class="token operator">+</span> <span class="token variable">$formattedDate</span></code></pre>
+<pre class="language-csharp"><code class="language-csharp"><span class="token keyword">const</span> KEY <span class="token operator">=</span> <span class="token string">"3da541559918a808c2402bba5012f6c60b27661c"</span><br><span class="token keyword">const</span> SECRET <span class="token operator">=</span> <span class="token string">"OTEyZWM4MDNiMmNINDk="</span><br><span class="token class-name"><span class="token keyword">var</span></span> formatted_date <span class="token operator">=</span> DateTime<span class="token punctuation">.</span>Now<span class="token punctuation">.</span><span class="token function">ToString</span><span class="token punctuation">(</span><span class="token string">"yyyy-MM-dd"</span><span class="token punctuation">)</span><br><span class="token class-name"><span class="token keyword">var</span></span> pre_sig <span class="token operator">=</span> KEY <span class="token operator">+</span> SECRET <span class="token operator">+</span> formatted_date</code></pre>
+<pre class="language-java"><code class="language-java"><span class="token class-name">String</span> KEY <span class="token operator">=</span> <span class="token string">"3da541559918a808c2402bba5012f6c60b27661c"</span><span class="token punctuation">;</span><br><span class="token class-name">String</span> SECRET <span class="token operator">=</span> <span class="token string">"OTEyZWM4MDNiMmNINDk="</span><span class="token punctuation">;</span><br><span class="token class-name">String</span> formattedDate <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SimpleDateFormat</span><span class="token punctuation">(</span><span class="token string">"yyyy-MM-dd"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token class-name">String</span> authStr <span class="token operator">=</span> KEY <span class="token operator">+</span> SECRET <span class="token operator">+</span> formattedDate<span class="token punctuation">;</span></code></pre>
+<pre class="language-go"><code class="language-go"><span class="token keyword">const</span> KEY <span class="token operator">=</span> <span class="token string">"3da541559918a808c2402bba5012f6c60b27661c"</span><br><span class="token keyword">const</span> SECRET <span class="token operator">=</span> <span class="token string">"OTEyZWM4MDNiMmNINDk="</span><br><span class="token keyword">var</span> formatted_date <span class="token operator">=</span> time<span class="token punctuation">.</span><span class="token function">Now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Format</span><span class="token punctuation">(</span><span class="token string">"2006-01-02"</span><span class="token punctuation">)</span><br><span class="token keyword">var</span> pre_sig <span class="token operator">=</span> KEY <span class="token operator">+</span> SECRET <span class="token operator">+</span> formatted_date</code></pre>
+<p>You will now perform a SHA1 cryptographic hash on this string.</p>
 <blockquote>
-<p>A SHA1 hash can be calculated in any shell.</p>
+<p>The SHA1 hash can be easily calculated in any shell.</p>
 </blockquote>
-<div class="highlight"><pre class="highlight powershell tab-powershell"><code><span class="c"># We convert the concatenated string into a binary representation.</span><span class="w">
-</span><span class="nv">$myVoPayAuthChars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$myVoPayAuthStr</span><span class="o">.</span><span class="nf">ToCharArray</span><span class="p">()</span><span class="w">
-</span><span class="nv">$myVoPayAuthBytes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$myVoPayAuthChars</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ForEach-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="n">System.Convert</span><span class="p">]::</span><span class="n">ToByte</span><span class="p">(</span><span class="bp">$_</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w">
-</span><span class="nv">$myVoPayAuthStream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">IO.MemoryStream</span><span class="p">]::</span><span class="n">new</span><span class="p">(</span><span class="nv">$myVoPayAuthBytes</span><span class="p">)</span><span class="w">  </span><span class="c"># Note: Reading changes the stream position</span><span class="w">
-</span><span class="c"># Then, we pass that to a hashing function.</span><span class="w">
-</span><span class="nv">$myVoPayHash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-FileHash</span><span class="w"> </span><span class="nt">-InputStream</span><span class="w"> </span><span class="nv">$myVoPayAuthStream</span><span class="w"> </span><span class="nt">-Algorithm</span><span class="w"> </span><span class="nx">SHA1</span><span class="w">
-</span><span class="nv">$myVoPaySig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$myVoPayHash</span><span class="o">.</span><span class="nf">Hash</span><span class="o">.</span><span class="nf">ToLowerInvariant</span><span class="p">()</span><span class="w">
-</span></code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="nv">my_vopay_sig</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="nt">-n</span> <span class="nv">$my_vopay_auth_str</span> | <span class="nb">sha1sum</span> | <span class="nb">awk</span> <span class="s1">'{print $1}'</span><span class="si">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="n">my_vopay_sig</span> <span class="o">=</span> <span class="n">hashlib</span><span class="p">.</span><span class="n">sha1</span><span class="p">(</span><span class="n">my_vopay_auth_str</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)).</span><span class="n">hexdigest</span><span class="p">()</span>
-</code></pre></div>
-<p>We will call the result our &quot;signature&quot;. Let&#39;s see if we can use the signature to receive some information from the sandbox. For this, we also need your sandbox username. We will use the sandbox username as the <code>AccountID</code> in all our API testing.</p>
-<div class="highlight"><pre class="highlight powershell tab-powershell"><code><span class="nv">$myVoPayAccountID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"daniella.nkechi@example.com"</span><span class="w">
-</span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="nt">-Method</span><span class="w"> </span><span class="nx">Get</span><span class="w"> </span><span class="nt">-Uri</span><span class="w"> </span><span class="s2">"https://earthnode-dev.vopay.com/api/v2/account/balance?AccountID=</span><span class="nv">$myVoPayAccountID</span><span class="s2">&amp;Key=</span><span class="nv">$myVoPayKey</span><span class="s2">&amp;Signature=</span><span class="nv">$myVoPaySig</span><span class="s2">&amp;Currency=CAD"</span><span class="w">
-</span></code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="nv">my_vopay_account_id</span><span class="o">=</span><span class="s2">"daniella.nkechi@example.com"</span>
-curl <span class="nt">-s</span> <span class="nt">-X</span> GET <span class="s2">"https://earthnode-dev.vopay.com/api/v2/account/balance?AccountID=</span><span class="nv">$my_vopay_account_id</span><span class="s2">&amp;Key=</span><span class="nv">$my_vopay_key</span><span class="s2">&amp;Signature=</span><span class="nv">$my_vopay_sig</span><span class="s2">&amp;Currency=CAD"</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="n">my_vopay_account_id</span><span class="o">=</span><span class="s">"daniella.nkechi@example.com"</span>
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://earthnode-dev.vopay.com/api/v2/account/balance?AccountID=%s&amp;Key=%s&amp;Signature=%s&amp;Currency=CAD"</span> <span class="o">%</span> <span class="p">(</span><span class="n">my_vopay_account_id</span><span class="p">,</span> <span class="n">my_vopay_key</span><span class="p">,</span> <span class="n">my_vopay_sig</span><span class="p">))</span>
-</code></pre></div>
+<pre class="language-powershell"><code class="language-powershell"><span class="token comment"># You convert the concatenated string into a binary representation.</span><br><span class="token variable">$PreSigChars</span> = <span class="token variable">$PreSig</span><span class="token punctuation">.</span>ToCharArray<span class="token punctuation">(</span><span class="token punctuation">)</span><br><span class="token variable">$PreSigBytes</span> = <span class="token variable">$PreSigChars</span> <span class="token punctuation">|</span> <span class="token function">ForEach-Object</span> <span class="token punctuation">{</span> <span class="token namespace">[System.Convert]</span>::ToByte<span class="token punctuation">(</span><span class="token variable">$_</span><span class="token punctuation">)</span> <span class="token punctuation">}</span><br><span class="token variable">$PreSigStream</span> = <span class="token namespace">[IO.MemoryStream]</span>::new<span class="token punctuation">(</span><span class="token variable">$PreSigBytes</span><span class="token punctuation">)</span>  <span class="token comment"># Note: Reading changes the stream position</span><br><span class="token comment"># Then, you pass that to a hashing function.</span><br><span class="token variable">$Hash</span> = <span class="token function">Get-FileHash</span> <span class="token operator">-</span>InputStream <span class="token variable">$PreSigStream</span> <span class="token operator">-</span>Algorithm SHA1<br><span class="token variable">$Signature</span> = <span class="token variable">$Hash</span><span class="token punctuation">.</span>Hash<span class="token punctuation">.</span>ToLowerInvariant<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<pre class="language-shell"><code class="language-shell"><span class="token assign-left variable">signature</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> -n $pre_sig_str <span class="token operator">|</span> sha1sum <span class="token operator">|</span> <span class="token function">awk</span> <span class="token string">'{print $1}'</span><span class="token variable">)</span></span></code></pre>
+<pre class="language-python"><code class="language-python">signature <span class="token operator">=</span> hashlib<span class="token punctuation">.</span>sha1<span class="token punctuation">(</span>pre_sig<span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">'utf-8'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>hexdigest<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<pre class="language-js"><code class="language-js"><span class="token keyword">var</span> signature <span class="token operator">=</span> crypto<span class="token punctuation">.</span><span class="token function">createHash</span><span class="token punctuation">(</span><span class="token string">'sha1'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span>pre_sig<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">digest</span><span class="token punctuation">(</span><span class="token string">'hex'</span><span class="token punctuation">)</span></code></pre>
+<pre class="language-ruby"><code class="language-ruby">signature <span class="token operator">=</span> Digest<span class="token double-colon punctuation">::</span><span class="token constant">SHA1</span><span class="token punctuation">.</span>hexdigest<span class="token punctuation">(</span>pre_sig<span class="token punctuation">)</span></code></pre>
+<pre class="language-php"><code class="language-php">signature <span class="token operator">=</span> <span class="token function">hash</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'sha1'</span><span class="token punctuation">,</span> pre_sig<span class="token punctuation">)</span></code></pre>
+<pre class="language-csharp"><code class="language-csharp"><span class="token comment">// Using statements and class setup omitted for brevity</span><br>signature <span class="token operator">=</span> SHA1<span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">ComputeHash</span><span class="token punctuation">(</span>Encoding<span class="token punctuation">.</span>UTF8<span class="token punctuation">.</span><span class="token function">GetBytes</span><span class="token punctuation">(</span>pre_sig<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">ToHexString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<pre class="language-java"><code class="language-java"><span class="token comment">// Import statements and class setup omitted for brevity</span><br>signature <span class="token operator">=</span> <span class="token class-name">MessageDigest</span><span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token string">"SHA-1"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">digest</span><span class="token punctuation">(</span>pre_sig<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token string">"UTF-8"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toHexString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>You will need this to authenticate every request.</p>
+<p><a href="#example-getting-account-balance">Later</a>, you will use the signature to receive sandbox data from VoPay.</p>
+<h2 id="how-vopay-works" tabindex="-1">How VoPay works</h2>
+<p>To better appreciate the capabilities these API’s unleash, a bird’s-eye view of how VoPay works can be helpful.</p>
+<h3 id="fluid-funds-in-your-virtual-wallet" tabindex="-1">Fluid funds in your virtual wallet</h3>
+<p>VoPay’s simple yet powerful API’s enable you to securely fund and withdraw money from this virtual wallet. Any movement of funds can be accomplished through just a few lines of code:</p>
+<ul>
+<li>withdraw and deposit funds
+<ul>
+<li>from savings</li>
+<li>from chequing accounts</li>
+</ul>
+</li>
+<li>request payments
+<ul>
+<li>EFT</li>
+<li>Interac</li>
+<li>Visa, Mastercard, and Discover</li>
+</ul>
+</li>
+<li>transfer or send money</li>
+<li>make bulk EFT’s, e.g.:
+<ul>
+<li>payroll</li>
+<li>property managers</li>
+<li>shareholders</li>
+</ul>
+</li>
+<li><em>many more transactions</em></li>
+</ul>
+<p>Effectively, your VoPay account acts like a cloud-hosted virtual wallet.</p>
+<h3 id="sending-money" tabindex="-1">Sending money</h3>
+<p>Before making outbound transactions, wallets need to make funds available. To send money then, you will <strong>fund</strong> your wallet.</p>
+<p><img src="slate/img/wallet.svg" alt="Digital wallet"></p>
+<p>You can do this by making a <code>POST</code> request to the <code>/api/v2/eft/fund</code> endpoint. This endpoint debits funds from a bank account that you specify in the request parameters.</p>
+<pre class="language-shell"><code class="language-shell"><span class="token function">curl</span> --request POST <span class="token punctuation">\</span><br> --url https://earthnode-dev.vopay.com/api/v2/eft/fund <span class="token punctuation">\</span><br> --form <span class="token string">"AccountID={AccountID}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"Key={Key}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"Signature={Signature}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"ClientAccountID={ClientAccountID}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"FirstName={FirstName}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"LastName={LastName}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"CompanyName={CompanyName}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"DOB={DOB}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"PhoneNumber={PhoneNumber}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"Address1={Address1}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"City={City}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"Province={Province}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"Country={Country}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"PostalCode={PostalCode}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"AccountNumber={AccountNumber}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"FinancialInstitutionNumber={FinancialInstitutionNumber}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"BranchTransitNumber={BranchTransitNumber}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"Amount={Amount}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"Currency={Currency}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"Iq11VerificationLevelID={Iq11VerificationLevelID}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"ClientReferenceNumber={ClientReferenceNumber}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"KYCPerformed={KYCPerformed}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"KYCReferenceNumber={KYCReferenceNumber}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"EmailAddress={EmailAddress}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"IPAddress={IPAddress}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"FlinksAccountID={FlinksAccountID}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"FlinksLoginID={FlinksLoginID}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"Token={Token}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"PlaidPublicToken={PlaidPublicToken}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"PlaidAccessToken={PlaidAccessToken}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"PlaidAccountID={PlaidAccountID}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"PlaidProcessorToken={PlaidProcessorToken}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"InveriteRequestGUID={InveriteRequestGUID}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"TransactionLabel={TransactionLabel}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"Notes={Notes}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"DelayBankingInfo={DelayBankingInfo}"</span> <span class="token punctuation">\</span><br> --form <span class="token string">"IdempotencyKey={IdempotencyKey}"</span></code></pre>
+<pre class="language-powershell"><code class="language-powershell"><span class="token function">Invoke-RestMethod</span> <span class="token operator">-</span>Method Post <span class="token operator">-</span>Uri <span class="token string">"https://earthnode-dev.vopay.com/api/v2/eft/fund"</span> <span class="token operator">-</span>Body <span class="token string">'{"AccountID":"$AccountID","Key":"$KEY","Signature":"$Signature","ClientAccountID":"$ClientAccountID","FirstName":"$FirstName","LastName":"$LastName","CompanyName":"$CompanyName","DOB":"$DOB","PhoneNumber":"$PhoneNumber","Address1":"$Address1","City":"$City","Province":"$Province","Country":"$Country","PostalCode":"$PostalCode","AccountNumber":"$AccountNumber","FinancialInstitutionNumber":"$FinancialInstitutionNumber","BranchTransitNumber":"$BranchTransitNumber","Amount":"$Amount","Currency":"$Currency","Iq11VerificationLevelID":"$Iq11VerificationLevelID","ClientReferenceNumber":"$ClientReferenceNumber","KYCPerformed":"$KYCPerformed","KYCReferenceNumber":"$KYCReferenceNumber","EmailAddress":"$EmailAddress","IPAddress":"$IPAddress","FlinksAccountID":"$FlinksAccountID","FlinksLoginID":"$FlinksLoginID","Token":"$Token","PlaidPublicToken":"$PlaidPublicToken","PlaidAccessToken":"$PlaidAccessToken","PlaidAccountID":"$PlaidAccountID","PlaidProcessorToken":"$PlaidProcessorToken","InveriteRequestGUID":"$InveriteRequestGUID","TransactionLabel":"$TransactionLabel","Notes":"$Notes","DelayBankingInfo":"$DelayBankingInfo","IdempotencyKey":"$IdempotencyKey"}'</span></code></pre>
+<pre class="language-python"><code class="language-python"><span class="token keyword">import</span> requests<br>r<span class="token operator">=</span>requests<span class="token punctuation">.</span>post<span class="token punctuation">(</span><span class="token string">'https://earthnode-dev.vopay.com/api/v2/eft/fund'</span><span class="token punctuation">,</span><br>                data<span class="token operator">=</span><span class="token punctuation">{</span><br>                    <span class="token string">'AccountID'</span><span class="token punctuation">:</span> <span class="token string">'$AccountID'</span><span class="token punctuation">,</span><br>                    <span class="token string">'Key'</span><span class="token punctuation">:</span> <span class="token string">'$KEY'</span><span class="token punctuation">,</span><br>                    <span class="token string">'Signature'</span><span class="token punctuation">:</span> <span class="token string">'$Signature'</span><span class="token punctuation">,</span><br>                    <span class="token string">'ClientAccountID'</span><span class="token punctuation">:</span> <span class="token string">'$ClientAccountID'</span><span class="token punctuation">,</span><br>                    <span class="token string">'FirstName'</span><span class="token punctuation">:</span> <span class="token string">'$FirstName'</span><span class="token punctuation">,</span><br>                    <span class="token string">'LastName'</span><span class="token punctuation">:</span> <span class="token string">'$LastName'</span><span class="token punctuation">,</span><br>                    <span class="token string">'CompanyName'</span><span class="token punctuation">:</span> <span class="token string">'$CompanyName'</span><span class="token punctuation">,</span><br>                    <span class="token string">'DOB'</span><span class="token punctuation">:</span> <span class="token string">'$DOB'</span><span class="token punctuation">,</span><br>                    <span class="token string">'PhoneNumber'</span><span class="token punctuation">:</span> <span class="token string">'$PhoneNumber'</span><span class="token punctuation">,</span><br>                    <span class="token string">'Address1'</span><span class="token punctuation">:</span> <span class="token string">'$Address1'</span><span class="token punctuation">,</span><br>                    <span class="token string">'City'</span><span class="token punctuation">:</span> <span class="token string">'$City'</span><span class="token punctuation">,</span><br>                    <span class="token string">'Province'</span><span class="token punctuation">:</span> <span class="token string">'$Province'</span><span class="token punctuation">,</span><br>                    <span class="token string">'Country'</span><span class="token punctuation">:</span> <span class="token string">'$Country'</span><span class="token punctuation">,</span><br>                    <span class="token string">'PostalCode'</span><span class="token punctuation">:</span> <span class="token string">'$PostalCode'</span><span class="token punctuation">,</span><br>                    <span class="token string">'AccountNumber'</span><span class="token punctuation">:</span> <span class="token string">'$AccountNumber'</span><span class="token punctuation">,</span><br>                    <span class="token string">'FinancialInstitutionNumber'</span><span class="token punctuation">:</span> <span class="token string">'$FinancialInstitutionNumber'</span><span class="token punctuation">,</span><br>                    <span class="token string">'BranchTransitNumber'</span><span class="token punctuation">:</span> <span class="token string">'$BranchTransitNumber'</span><span class="token punctuation">,</span><br>                    <span class="token string">'Amount'</span><span class="token punctuation">:</span> <span class="token string">'$Amount'</span><span class="token punctuation">,</span><br>                    <span class="token string">'Currency'</span><span class="token punctuation">:</span> <span class="token string">'$Currency'</span><span class="token punctuation">,</span><br>                    <span class="token string">'Iq11VerificationLevelID'</span><span class="token punctuation">:</span> <span class="token string">'$Iq11VerificationLevelID'</span><span class="token punctuation">,</span><br>                    <span class="token string">'ClientReferenceNumber'</span><span class="token punctuation">:</span> <span class="token string">'$ClientReferenceNumber'</span><span class="token punctuation">,</span><br>                    <span class="token string">'KYCPerformed'</span><span class="token punctuation">:</span> <span class="token string">'$KYCPerformed'</span><span class="token punctuation">,</span><br>                    <span class="token string">'KYCReferenceNumber'</span><span class="token punctuation">:</span> <span class="token string">'$KYCReferenceNumber'</span><span class="token punctuation">,</span><br>                    <span class="token string">'EmailAddress'</span><span class="token punctuation">:</span> <span class="token string">'$EmailAddress'</span><span class="token punctuation">,</span><br>                    <span class="token string">'IPAddress'</span><span class="token punctuation">:</span> <span class="token string">'$IPAddress'</span><span class="token punctuation">,</span><br>                    <span class="token string">'FlinksAccountID'</span><span class="token punctuation">:</span> <span class="token string">'$FlinksAccountID'</span><span class="token punctuation">,</span><br>                    <span class="token string">'FlinksLoginID'</span><span class="token punctuation">:</span> <span class="token string">'$FlinksLoginID'</span><span class="token punctuation">,</span><br>                    <span class="token string">'Token'</span><span class="token punctuation">:</span> <span class="token string">'$Token'</span><span class="token punctuation">,</span><br>                    <span class="token string">'PlaidPublicToken'</span><span class="token punctuation">:</span> <span class="token string">'$PlaidPublicToken'</span><span class="token punctuation">,</span><br>                    <span class="token string">'PlaidAccessToken'</span><span class="token punctuation">:</span> <span class="token string">'$PlaidAccessToken'</span><span class="token punctuation">,</span><br>                    <span class="token string">'PlaidAccountID'</span><span class="token punctuation">:</span> <span class="token string">'$PlaidAccountID'</span><span class="token punctuation">,</span><br>                    <span class="token string">'PlaidProcessorToken'</span><span class="token punctuation">:</span> <span class="token string">'$PlaidProcessorToken'</span><span class="token punctuation">,</span><br>                    <span class="token string">'InveriteRequestGUID'</span><span class="token punctuation">:</span> <span class="token string">'$InveriteRequestGUID'</span><span class="token punctuation">,</span><br>                    <span class="token string">'TransactionLabel'</span><span class="token punctuation">:</span> <span class="token string">'$TransactionLabel'</span><span class="token punctuation">,</span><br>                    <span class="token string">'Notes'</span><span class="token punctuation">:</span> <span class="token string">'$Notes'</span><span class="token punctuation">,</span><br>                    <span class="token string">'DelayBankingInfo'</span><span class="token punctuation">:</span> <span class="token string">'$DelayBankingInfo'</span><span class="token punctuation">,</span><br>                    <span class="token string">'IdempotencyKey'</span><span class="token punctuation">:</span> <span class="token string">'$IdempotencyKey'</span><br>                <span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre>
+<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">var</span> options <span class="token operator">=</span> <span class="token punctuation">{</span><br> <span class="token string-property property">"method"</span><span class="token operator">:</span> <span class="token string">"POST"</span><span class="token punctuation">,</span><br> <span class="token string-property property">"url"</span><span class="token operator">:</span> <span class="token string">"https://earthnode-dev.vopay.com/api/v2/eft/fund"</span><span class="token punctuation">,</span><br> <span class="token string-property property">"formData"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>  <span class="token string-property property">"AccountID"</span><span class="token operator">:</span> <span class="token string">"{AccountID}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"Key"</span><span class="token operator">:</span> <span class="token string">"{Key}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"Signature"</span><span class="token operator">:</span> <span class="token string">"{Signature}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"ClientAccountID"</span><span class="token operator">:</span> <span class="token string">"{ClientAccountID}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"FirstName"</span><span class="token operator">:</span> <span class="token string">"{FirstName}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"LastName"</span><span class="token operator">:</span> <span class="token string">"{LastName}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"CompanyName"</span><span class="token operator">:</span> <span class="token string">"{CompanyName}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"DOB"</span><span class="token operator">:</span> <span class="token string">"{DOB}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"PhoneNumber"</span><span class="token operator">:</span> <span class="token string">"{PhoneNumber}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"Address1"</span><span class="token operator">:</span> <span class="token string">"{Address1}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"City"</span><span class="token operator">:</span> <span class="token string">"{City}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"Province"</span><span class="token operator">:</span> <span class="token string">"{Province}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"Country"</span><span class="token operator">:</span> <span class="token string">"{Country}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"PostalCode"</span><span class="token operator">:</span> <span class="token string">"{PostalCode}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"AccountNumber"</span><span class="token operator">:</span> <span class="token string">"{AccountNumber}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"FinancialInstitutionNumber"</span><span class="token operator">:</span> <span class="token string">"{FinancialInstitutionNumber}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"BranchTransitNumber"</span><span class="token operator">:</span> <span class="token string">"{BranchTransitNumber}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"Amount"</span><span class="token operator">:</span> <span class="token string">"{Amount}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"Currency"</span><span class="token operator">:</span> <span class="token string">"{Currency}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"Iq11VerificationLevelID"</span><span class="token operator">:</span> <span class="token string">"{Iq11VerificationLevelID}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"ClientReferenceNumber"</span><span class="token operator">:</span> <span class="token string">"{ClientReferenceNumber}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"KYCPerformed"</span><span class="token operator">:</span> <span class="token string">"{KYCPerformed}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"KYCReferenceNumber"</span><span class="token operator">:</span> <span class="token string">"{KYCReferenceNumber}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"EmailAddress"</span><span class="token operator">:</span> <span class="token string">"{EmailAddress}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"IPAddress"</span><span class="token operator">:</span> <span class="token string">"{IPAddress}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"FlinksAccountID"</span><span class="token operator">:</span> <span class="token string">"{FlinksAccountID}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"FlinksLoginID"</span><span class="token operator">:</span> <span class="token string">"{FlinksLoginID}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"Token"</span><span class="token operator">:</span> <span class="token string">"{Token}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"PlaidPublicToken"</span><span class="token operator">:</span> <span class="token string">"{PlaidPublicToken}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"PlaidAccessToken"</span><span class="token operator">:</span> <span class="token string">"{PlaidAccessToken}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"PlaidAccountID"</span><span class="token operator">:</span> <span class="token string">"{PlaidAccountID}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"PlaidProcessorToken"</span><span class="token operator">:</span> <span class="token string">"{PlaidProcessorToken}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"InveriteRequestGUID"</span><span class="token operator">:</span> <span class="token string">"{InveriteRequestGUID}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"TransactionLabel"</span><span class="token operator">:</span> <span class="token string">"{TransactionLabel}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"Notes"</span><span class="token operator">:</span> <span class="token string">"{Notes}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"DelayBankingInfo"</span><span class="token operator">:</span> <span class="token string">"{DelayBankingInfo}"</span><span class="token punctuation">,</span><br>  <span class="token string-property property">"IdempotencyKey"</span><span class="token operator">:</span> <span class="token string">"{IdempotencyKey}"</span><br> <span class="token punctuation">}</span><br><span class="token punctuation">}</span><span class="token punctuation">;</span><br><br><span class="token function">request</span><span class="token punctuation">(</span>options<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">error<span class="token punctuation">,</span> response<span class="token punctuation">,</span> body</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>  <span class="token keyword">if</span> <span class="token punctuation">(</span>error<span class="token punctuation">)</span> <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span><span class="token punctuation">;</span><br><br>  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>body<span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h2 id="example%3A-getting-account-balance" tabindex="-1">Example: Getting Account Balance <a id="example-getting-account-balance"></a></h2>
+<p>Now you will use your signature to receive some information from the sandbox.</p>
+<p>To do this, you need only your account ID, API key, and signature.</p>
+<blockquote>
+<p>Query Parameters</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Data Type</th>
+<th>Description</th>
+<th>Necessity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AccountID</code></td>
+<td><code>string</code></td>
+<td>Your account ID</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>Key</code></td>
+<td><code>string</code></td>
+<td>API key for the account</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>Signature</code></td>
+<td><code>string</code></td>
+<td>Hashed signature for the request</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>Currency</code></td>
+<td><code>string</code></td>
+<td>ISO 4217 3-character code for currency of transactions to fetch. Defaults to account’s local currency (<code>CAD</code>)</td>
+<td>optional</td>
+</tr>
+</tbody>
+</table>
+<pre class="language-powershell"><code class="language-powershell"><span class="token variable">$AccountID</span> = <span class="token string">"daniella.nkechi"</span><br><span class="token function">Invoke-RestMethod</span> <span class="token operator">-</span>Method Get <span class="token operator">-</span>Uri <span class="token string">"https://earthnode-dev.vopay.com/api/v2/account/balance?AccountID=<span class="token variable">$AccountID</span>&amp;Key=<span class="token variable">$KEY</span>&amp;Signature=<span class="token variable">$Signature</span>&amp;Currency=CAD"</span></code></pre>
+<pre class="language-shell"><code class="language-shell"><span class="token assign-left variable">account_id</span><span class="token operator">=</span><span class="token string">"daniella.nkechi"</span><br><span class="token function">curl</span> -s -X GET <span class="token string">"https://earthnode-dev.vopay.com/api/v2/account/balance?AccountID=<span class="token variable">$account_id</span>&amp;Key=<span class="token variable">$KEY</span>&amp;Signature=<span class="token variable">$signature</span>&amp;Currency=CAD"</span></code></pre>
+<pre class="language-python"><code class="language-python">account_id<span class="token operator">=</span><span class="token string">"daniella.nkechi"</span><br>r <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"https://earthnode-dev.vopay.com/api/v2/account/balance?AccountID=%s&amp;Key=%s&amp;Signature=%s&amp;Currency=CAD"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>account_id<span class="token punctuation">,</span> KEY<span class="token punctuation">,</span> signature<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
 <blockquote>
 <p>The result</p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"Success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"ErrorMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"AccountBalance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3000.00"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"PendingFunds"</span><span class="p">:</span><span class="w"> </span><span class="s2">"700.00"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"SecurityDeposit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1000.00"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"AvailableImmediately"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"AvailableFunds"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1300.00"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"Currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CAD"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span><span class="err">To</span><span class="w"> </span><span class="err">send</span><span class="w"> </span><span class="err">out,</span><span class="w"> </span><span class="err">we</span><span class="w"> </span><span class="err">cannot</span><span class="w"> </span><span class="err">exceed</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">available</span><span class="w"> </span><span class="err">funds.</span><span class="w"> </span><span class="err">Imagine</span><span class="w"> </span><span class="err">we</span><span class="w"> </span><span class="err">want</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">make</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">$</span><span class="mi">2</span><span class="err">,</span><span class="mi">000</span><span class="w"> </span><span class="err">transaction.</span><span class="w">
-</span></code></pre></div>
-<aside class="success">We queried the VoPay <a href="https://docs.vopay.com/v2/vopay-api-reference/ref#accountbalanceget" target="_blank"><code>GET</code> account/balance endpoint</a> to retrieve the current account balance for our sandbox account.</aside>
-
-<p>This endpoint retrieves our account balance.</p>
-<h3 id='https-request'>HTTPS Request</h3>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"Success"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span><br>  <span class="token property">"ErrorMessage"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span><br>  <span class="token property">"AccountBalance"</span><span class="token operator">:</span> <span class="token string">"3000.00"</span><span class="token punctuation">,</span><br>  <span class="token property">"PendingFunds"</span><span class="token operator">:</span> <span class="token string">"700.00"</span><span class="token punctuation">,</span><br>  <span class="token property">"SecurityDeposit"</span><span class="token operator">:</span> <span class="token string">"1000.00"</span><span class="token punctuation">,</span><br>  <span class="token property">"AvailableFunds"</span><span class="token operator">:</span> <span class="token string">"1300.00"</span><span class="token punctuation">,</span><br>  <span class="token property">"Currency"</span><span class="token operator">:</span> <span class="token string">"CAD"</span><br><span class="token punctuation">}</span></code></pre>
+<aside class="warning">To send out funds, you must not exceed the available funds. To make a $2,000 transaction.</aside>
+<p>A closer look at the response:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Success</code></td>
+<td><code>boolean</code></td>
+<td><code>true</code> when request successful, <code>false</code> when failed</td>
+</tr>
+<tr>
+<td><code>ErrorMessage</code></td>
+<td><code>string</code></td>
+<td>Contains a description of the error if the request failed</td>
+</tr>
+<tr>
+<td><code>AccountBalance</code></td>
+<td><code>number</code></td>
+<td>Indicates the total current account balance, including pending funds.</td>
+</tr>
+<tr>
+<td><code>PendingFunds</code></td>
+<td><code>number</code></td>
+<td>Indicates the portion of the account balance which is pending due to <em>in-progress</em> EFT transactions.</td>
+</tr>
+<tr>
+<td><code>SecurityDeposit</code></td>
+<td><code>number</code></td>
+<td>Indicates the portion of the account balance which is being held as a security deposit against returned or fraudulent transactions.</td>
+</tr>
+<tr>
+<td><code>AvailableFunds</code></td>
+<td><code>number</code></td>
+<td>Indicates the portion of the account balance which is currently available for use. This is calculated <code>AccountBalance</code> - (<code>PendingFunds</code> + <code>SecurityDeposit</code>).</td>
+</tr>
+<tr>
+<td><code>Currency</code></td>
+<td><code>string</code></td>
+<td>3 character currency code for the balance being returned.</td>
+</tr>
+</tbody>
+</table>
+<aside class="success">You queried the VoPay <a href="https://docs.vopay.com/v2/vopay-api-reference/ref#accountbalanceget" target="_blank"><code>GET</code> account/balance endpoint</a> to retrieve the current account balance for your sandbox account.</aside>
+<p>This endpoint retrieves your wallet balance.</p>
+<h3 id="https-request" tabindex="-1">HTTPS Request</h3>
 <p><code>GET https://earthnode-dev.vopay.com/api/v2/account/balance</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
-<table><thead>
+<h3 id="query-parameters" tabindex="-1">Query Parameters</h3>
+<table>
+<thead>
 <tr>
 <th>Parameter</th>
 <th>Default</th>
 <th>Description</th>
 </tr>
-</thead><tbody>
+</thead>
+<tbody>
 <tr>
-<td>account_id</td>
+<td>AccountId</td>
 <td>None</td>
-<td>The email address or identifier of the sandbox account (provided by you when signing up).</td>
+<td>The email address or identifier of the sandbox account (provided when granted sandbox access).</td>
 </tr>
 <tr>
-<td>api_key</td>
+<td>Key</td>
 <td>None</td>
 <td>Unique identifier represented as 40-character hexadecimal string used to access the endpoints (provided by VoPay).</td>
 </tr>
 <tr>
-<td>signature</td>
+<td>Signature</td>
 <td>None</td>
 <td>A SHA1 hash of your string-concatenated <code>api_key</code>, <code>shared_secret</code>, and <code>formatted_date</code>.</td>
 </tr>
 <tr>
-<td>currency</td>
+<td>Currency</td>
 <td>None</td>
 <td><a href="https://www.iso.org/iso-4217-currency-codes.html">ISO 4217 currency code</a> for your desired country.</td>
 </tr>
-</tbody></table>
-<h2 id='how-vopay-works'>How VoPay works</h2>
-<p>Let&#39;s take a step back to look at how VoPay works.</p>
-<h3 id='virtual-wallet'>Virtual wallet</h3>
-<p>VoPay provides programmatic endpoints to perform any financial transaction: withdraw and deposit from your savings or chequing accounts; request payments; transfer or send money; make bulk payouts; and more. This allows your funds to exist securely in a digital space with all the confidence you place in your own bank.</p>
-
-<p>In effect, a VoPay account acts like a virtual wallet.</p>
-<h3 id='sending-money'>Sending money</h3>
-<p>Before making outbound transactions, we need to make funds available digitally. To send money, we first <strong>fund</strong> our wallet.</p>
-
-<p><img src="images/wallet-a8b98a4c.svg" alt="Digital wallet" /></p>
-
-<p>This means that we need to <strong>deposit</strong> funds into our wallet. We can do this by making a <code>POST</code> request to the <code>/api/v2/account/deposit</code> endpoint. We will use the <code>POST</code> method because we are depositing funds into our wallet. We will also use the <code>Content-Type</code> header to specify that we are sending JSON data.</p>
-<h2 id='checking-your-balance'>Checking your balance</h2>
-<p>As we have already seen, we can query the <code>/api/v2/account/balance</code> endpoint to retrieve the current balance of our account. This endpoint is also used to retrieve the balance of a specific currency.</p>
-
+</tbody>
+</table>
 <aside class="information">
 VoPay does not do any currency conversions. The balance returned is the balance of the account in the currency specified in the `currency` query parameter.
 </aside>
-<h2 id='funding-your-account'>Funding your account</h2>
-<p>To fund our account, we will need to <strong>deposit</strong> funds into our wallet. This is like receiving a check to cash. We can do this by making a <code>POST</code> request to the <code>/api/v2/eft/fund</code> endpoint. We will use the <code>POST</code> method because we are depositing funds into our wallet. These requests can take up to three (3) business days to clear. Name, address, amount, bank account. The amount funded will appear in the pending until the check is cleared. Available funds will not change immediately, but <code>AccountBalance</code> will reflect the new balance.</p>
-
-<p>Alternatively, we can fund our wallet by making an Interac payment request. Again, we will use the <code>POST</code> method to make the request, but this time we query the <code>/api/v2/interac/money-request</code> endpoint. With Interac transfer, the <code>AvailableFunds</code> again immediately reflect the pending, but funds clear as soon as money request is accepted.</p>
-
+<h2 id="funding-your-wallet" tabindex="-1">Funding your wallet</h2>
+<p>To fund your VoPay account, you will need to <strong>deposit</strong> funds into your wallet. This is like receiving a check to cash. You can do this by making a <code>POST</code> request to the <code>/api/v2/eft/fund</code> endpoint. These requests can take up to three (3) business days to clear. Name, address, amount, bank account. The amount funded will appear in the pending until the check is cleared. Available funds will not change immediately, but <code>AccountBalance</code> will reflect the new balance.</p>
+<p>Alternatively, you can fund your wallet by making an Interac payment request. Again, this guide will use the <code>POST</code> method to make the request, but this time you query the <code>/api/v2/interac/money-request</code> endpoint. With Interac transfer, the <code>AvailableFunds</code> again immediately reflect the pending, but funds clear as soon as money request is accepted.</p>
 <p>Preview feature: Fund-my-account. Same as EFT fund, except it uses your personal bank account instead of asking for the account.</p>
-<h2 id='eft-withdrawl'>EFT Withdrawl</h2>
-<p>Sending to another person&#39;s bank account. Like sending a check.</p>
-<h2 id='e-transfer'>E-Transfer</h2>
+<h2 id="eft-withdrawal" tabindex="-1">EFT Withdrawal</h2>
+<p>Sending to another person’s bank account. Like sending a check.</p>
+<h2 id="e-transfer" tabindex="-1">E-Transfer</h2>
 <p>Sending Interac money to another person by email or SMS. No bank details needed.</p>
-
 <hr>
-<h2 id='transaction-lifecycle'>Transaction lifecycle</h2>
+<h2 id="transaction-lifecycle" tabindex="-1">Transaction lifecycle</h2>
 <p>How a transaction goes from submitted to completed for various types of transactions.</p>
-<h3 id='transaction-status'>Transaction status</h3>
+<h3 id="transaction-status" tabindex="-1">Transaction status</h3>
 <ul>
 <li>GET account/transactions
-
 <ul>
-<li>Pass in the transaction ID
-### Webhooks</li>
-</ul></li>
+<li>Pass in the transaction ID</li>
 </ul>
-
-<p>Rather than requesting from us, we will tell you when a transaction status changes.</p>
-<h2 id='scheduling-transactions'>Scheduling transactions</h2>
+</li>
+</ul>
+<h3 id="webhooks" tabindex="-1">Webhooks</h3>
+<p>Rather than requesting from us, this guide will tell you when a transaction status changes.</p>
+<h2 id="scheduling-transactions" tabindex="-1">Scheduling transactions</h2>
 <p>Just EFT transactions.</p>
-
 <ul>
 <li>One-time</li>
 <li>Recurring</li>
 </ul>
-<h2 id='intelligent-eft-iq11'>Intelligent EFT (iQ11)</h2>
+<h2 id="intelligent-eft-iq11" tabindex="-1">Intelligent EFT (iQ11)</h2>
 <ul>
 <li>Generating iframe</li>
 <li>Different settings</li>
 <li>Connect bank account online as opposed to entering info manually</li>
 <li>Embedding iframe into website.</li>
 </ul>
-<h2 id='paylink'>Paylink</h2>
-<p>Get a link to iframe in an email. See https://docs.vopay.com/v2/docs/paylink and https://docs.vopay.com/v2/vopay-api-reference/ref#eftpaylinkpost</p>
-<h2 id='what-can-go-wrong'>What can go wrong</h2><h3 id='flag-duplicate'>Flag (duplicate)</h3><h3 id='nsf-fail'>NSF (fail)</h3><h3 id='invalid-account-information'>Invalid account information</h3><h2 id='how-to-refund-cancel-remove-flags'>How to refund, cancel, remove flags</h2>
+<h2 id="paylink" tabindex="-1">Paylink</h2>
+<p>Get a link to iframe in an email. See <a href="https://docs.vopay.com/v2/docs/paylink">https://docs.vopay.com/v2/docs/paylink</a> and <a href="https://docs.vopay.com/v2/vopay-api-reference/ref#eftpaylinkpost">https://docs.vopay.com/v2/vopay-api-reference/ref#eftpaylinkpost</a></p>
+<h2 id="what-can-go-wrong" tabindex="-1">What can go wrong</h2>
+<h3 id="flag-duplicate" tabindex="-1">Flag (duplicate)</h3>
+<h3 id="nsf-fail" tabindex="-1">NSF (fail)</h3>
+<h3 id="invalid-account-information" tabindex="-1">Invalid account information</h3>
+<h2 id="how-to-refund%2C-cancel%2C-remove-flags" tabindex="-1">How to refund, cancel, remove flags</h2>
 <hr>
-<h2 id='client-accounts'>Client accounts</h2><h3 id='network-among-clients'>Network among clients</h3><h3 id='different-transaction-flows-between-clients'>Different transaction flows between clients</h3><h1 id='errors'>Errors</h1>
-<aside class="notice">
-This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
-</aside>
-
-<p>TODO: Replace with VoPay
-The Kittn API uses the following error codes:</p>
-
-<table><thead>
-<tr>
-<th>Error Code</th>
-<th>Meaning</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>400</td>
-<td>Bad Request -- Your request is invalid.</td>
-</tr>
-<tr>
-<td>401</td>
-<td>Unauthorized -- Your API key is wrong.</td>
-</tr>
-</tbody></table>
-
-<p>TODO: Replace with VoPay
-403 | Forbidden -- The kitten requested is hidden for administrators only.
-TODO: Replace with VoPay
-404 | Not Found -- The specified kitten could not be found.
-TODO: Replace with VoPay
-405 | Method Not Allowed -- You tried to access a kitten with an invalid method.
-406 | Not Acceptable -- You requested a format that isn&#39;t json.
-TODO: Replace with VoPay
-410 | Gone -- The kitten requested has been removed from our servers.
-418 | I&#39;m a teapot.
-TODO: Replace with VoPay
-429 | Too Many Requests -- You&#39;re requesting too many kittens! Slow down!
-500 | Internal Server Error -- We had a problem with our server. Try again later.
-503 | Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</p>
+<h2 id="client-accounts" tabindex="-1">Client accounts</h2>
+<h3 id="network-among-clients" tabindex="-1">Network among clients</h3>
+<h3 id="different-transaction-flows-between-clients" tabindex="-1">Different transaction flows between clients</h3>
 
       </div>
       <div class="dark-box">
+        
           <div class="lang-selector">
+            
+              
                 <a href="#" data-language-name="powershell">powershell</a>
+              
+            
+              
                 <a href="#" data-language-name="shell">shell</a>
+              
+            
+              
+                <a href="#" data-language-name="ruby">ruby</a>
+              
+            
+              
                 <a href="#" data-language-name="python">python</a>
+              
+            
+              
+                <a href="#" data-language-name="php">php</a>
+              
+            
+              
+                <a href="#" data-language-name="csharp">csharp</a>
+              
+            
+              
+                <a href="#" data-language-name="javascript">javascript</a>
+              
+            
+              
+                <a href="#" data-language-name="golang">golang</a>
+              
+            
           </div>
+        
       </div>
     </div>
   </body>
