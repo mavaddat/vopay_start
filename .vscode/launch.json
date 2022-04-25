@@ -1,0 +1,59 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch via NPM",
+            "request": "launch",
+            "runtimeArgs": [
+                "start"
+            ],
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },
+        {
+            "name": "Attach by Process ID",
+            "processId": "${command:PickProcess}",
+            "request": "attach",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },
+        {
+            "name": "Documentation Markdown Files",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "./doDocumentationWork.ps1",
+            "cwd": "${workspaceFolder}",
+            "args": ["-FromMd"],
+            // "preLaunchTask":  "npm: start",
+            "postDebugTask" : "Terminate All Tasks"
+        },
+        {
+            "name": "Documentation Plan",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "./doDocumentationWork.ps1",
+            "cwd": "${workspaceFolder}",
+            "args": ["-FromPlan"],
+            // "preLaunchTask":  "npm: start",
+            "postDebugTask" : "Terminate All Tasks"
+        },
+        {
+            "name": "Get HTML",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "./doDocumentationWork.ps1",
+            "cwd": "${workspaceFolder}",
+            "args": ["-GetHTML"],
+            // "preLaunchTask":  "npm: start",
+            "postDebugTask" : "Terminate All Tasks"
+        }
+    ]
+}

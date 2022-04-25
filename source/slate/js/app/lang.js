@@ -1,7 +1,9 @@
+/* eslint-disable strict */
 //= require ../lib/_jquery
 
 /*
 Copyright 2008-2013 Concur Technologies, Inc.
+Copyright ©️ 2022-2023 VoPay International, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may
 not use this file except in compliance with the License. You may obtain
@@ -15,7 +17,7 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 */
-;(function () {
+(function () {
   'use strict';
 
   var languages = [];
@@ -25,8 +27,8 @@ under the License.
   window.getLanguageFromQueryString = getLanguageFromQueryString;
 
   function activateLanguage(language) {
-    if (!language) return;
-    if (language === "") return;
+    if (!language) return false;
+    if (language === "") return false;
 
     $(".lang-selector a").removeClass('active');
     $(".lang-selector a[data-language-name='" + language + "']").addClass('active');
@@ -43,6 +45,7 @@ under the License.
     if ($(window.location.hash).get(0)) {
       $(window.location.hash).get(0).scrollIntoView(true);
     }
+    return false;
   }
 
   // parseURL and stringifyURL are from https://github.com/sindresorhus/query-string
@@ -69,7 +72,7 @@ under the License.
       // http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
       val = val === undefined ? null : decodeURIComponent(val);
 
-      if (!ret.hasOwnProperty(key)) {
+      if (!Object.hasOwn(ret,key)) {
         ret[key] = val;
       } else if (Array.isArray(ret[key])) {
         ret[key].push(val);
@@ -79,7 +82,7 @@ under the License.
 
       return ret;
     }, {});
-  };
+  }
 
   function stringifyURL(obj) {
     return obj ? Object.keys(obj).sort().map(function (key) {
@@ -93,7 +96,7 @@ under the License.
 
       return encodeURIComponent(key) + '=' + encodeURIComponent(val);
     }).join('&') : '';
-  };
+  }
 
   // gets the language set in the query string
   function getLanguageFromQueryString() {
@@ -101,8 +104,8 @@ under the License.
       var language = parseURL(location.search).language;
       if (language) {
         return language;
-      } else if (jQuery.inArray(location.search.substr(1), languages) != -1) {
-        return location.search.substr(1);
+      } else if (jQuery.inArray(location.search.substring(1), languages) != -1) {
+        return location.search.substring(1);
       }
     }
 
@@ -136,14 +139,13 @@ under the License.
 
     // for compatibility with Ruby Slate 2.x
     $("pre").each(function() {
-      var pre = this;
-      $(pre).addClass("highlight");
-      $(pre).addClass("tab");
-      var classList = $(pre).attr('class').split(/\s+/);
+      $(this).addClass("highlight");
+      $(this).addClass("tab");
+      var classList = $(this).attr('class').split(/\s+/);
       $.each(classList, function(index, item) {
         if (item.startsWith('language-')) {
           var newClass = item.replace('language-', 'tab-');
-          $(pre).addClass(newClass);
+          $(this).addClass(newClass);
         }
       });
     });
@@ -177,4 +179,4 @@ under the License.
       return false;
     });
   });
-})();
+}());

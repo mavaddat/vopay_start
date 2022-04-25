@@ -1,0 +1,42 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"powershell.powerShellDefaultVersion": "Core",
+		"files.exclude": {
+			"**/.git": false,
+			"**/.svn": false,
+			"**/.hg": false,
+			"**/CVS": false,
+			"**/.DS_Store": false,
+			"**/Thumbs.db": false,
+			"**/.classpath": false,
+			"**/.project": false,
+			"**/.settings": false,
+			"**/.factorypath": false,
+			"source\\_includes/slate": false,
+			"node_modules": false
+		},
+		"explorerExclude.backup": {
+			"**/.git": true,
+			"**/.svn": true,
+			"**/.hg": true,
+			"**/CVS": true,
+			"**/.DS_Store": true,
+			"**/Thumbs.db": true,
+			"**/.classpath": true,
+			"**/.project": true,
+			"**/.settings": true,
+			"**/.factorypath": true,
+			"source\\_includes/slate": true,
+			"node_modules": true
+		},
+		"cSpell.words": [
+			"nsfs",
+			"vopay"
+		]
+	}
+}

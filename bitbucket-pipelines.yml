@@ -7,8 +7,8 @@ pipelines:
           - node
         name: 'Build'
         script:
-          - node i
-          - node run build
+          - npm i
+          - npm run build
     - parallel:
       - step:
           caches:
@@ -21,10 +21,7 @@ pipelines:
             - node
           name: 'Lint'
           script:
-            - npm install --save-dev eslint && npm init @eslint/config
-            - npm install --save-dev eslint eslint-plugin-markdown
-            - echo 'module.exports = {\nextends:\ [\n\t\t"plugin:markdown/recommended",\n\t\teslint:recommended"\n\t]\n};' > .eslintrc.js
-            - eslint --format checkstyle
+            - npm run lint.checkstyle
             - pipe: atlassian/checkstyle-report:0.3.1
               variables:
                 # CHECKSTYLE_RESULT_PATTERN: '<string>' # Optional.
@@ -34,6 +31,7 @@ pipelines:
           caches:
             - node
           name: 'Security scan'
+          trigger: manual
           script:
             - echo "Security scanning..."
             - pipe: snyk/snyk-scan:0.5.2
@@ -44,14 +42,14 @@ pipelines:
                 CODE_INSIGHTS_RESULTS: "True" # Optional.
                 # SNYK_TEST_JSON_INPUT: "<string>" # Optional. The filename or path of a JSON file containing the output from running a test with the Snyk CLI (with json output option).
                 # PROTECT: "<boolean>" # Optional.
-                DONT_BREAK_BUILD: "False" # Optional.
-                # MONITOR: "<boolean>" # Optional.
+                DONT_BREAK_BUILD: "True" # Optional.
+                MONITOR: "True" # Optional.
                 # SEVERITY_THRESHOLD: "<low|medium|high|critical>" # Optional.
-                ORGANIZATION: "VoPay International" # Optional.
-                # PROJECT_FOLDER: "<string>" # Optional.
+                ORGANIZATION: "VoPay" # Optional.
+                PROJECT_FOLDER: "_site" # Optional.
                 # TARGET_FILE: "<string>" # Optional.
                 # EXTRA_ARGS: "<string>" # Optional.
-                # DEBUG: "<boolean>" # Optional.
+                DEBUG: "True" # Optional.
 
     # The following deployment steps will be executed for each pipeline run. To configure your steps and conditionally deploy see https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/
     - step:
@@ -59,44 +57,11 @@ pipelines:
           - node
         name: 'Deployment to Staging'
         deployment: staging
+        trigger: 'manual'
         script:
           - echo "Uploading to AWS Amplify..."
-          - pipe: atlassian/aws-cloudformation-deploy:0.13.0
-            variables:
-              AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID # Optional if already defined in the context.
-              AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY # Optional if already defined in the context.
-              AWS_DEFAULT_REGION: "ca-central-1" # Optional if already defined in the context.
-              # AWS_OIDC_ROLE_ARN:  # Optional by default. Required for OpenID Connect (OIDC) authentication.
-              STACK_NAME: 'Docs'
-              TEMPLATE: 'bitbucket-amplify.yml'
-              STACK_PARAMETERS: >
-                [{
-                  "ParameterKey": "pAccessToken",
-                  "ParameterValue": $OAUTH_TOKEN
-                },
-                {
-                  "ParameterKey": "pRepoUrl",
-                  "ParameterValue": "https://bitbucket.org/vopay/vopay-docs/"
-                },
-                {
-                  "ParameterKey": "pBranchName",
-                  "ParameterValue": "staging"
-                },
-                {
-                  "ParameterKey": "pProjectName",
-                  "ParameterValue": "VoPay Docs"
-                }]
-              CAPABILITIES: ['CAPABILITY_IAM', 'CAPABILITY_AUTO_EXPAND'] # Optional.
-              # WAIT: '<boolean>' # Optional.
-              # WAIT_INTERVAL: '<integer>' # Optional.
-              # TAGS: '<json>' # Optional.
-              WITH_DEFAULT_TAGS: 'True' # Optional.
-              # ROLE_ARN: '<string>' # Optional.
-              # EXTRA_PARAMETERS: '<string>' # Optional.
-              # DEBUG: '<boolean>' # Optional.
         after-script:
           - echo "Querying AWS Amplify for the URL..."
-          - export AMPLIFY_URL=$(aws cloudformation describe-stacks --stack-name Docs --query 'Stacks[0].Outputs[?OutputKey==`AmplifyUrl`].OutputValue' --output text)
           - if test -f result.svg; then rm result.svg; fi  # Remove the previous result
           - echo "Checking if AMPLIFY_URL is set and exit code was zero"
           - export SLK_MSG="Deployed to AWS Amplify (commit ${BITBUCKET_COMMIT}"

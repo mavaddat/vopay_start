@@ -5,6 +5,7 @@
 
 /*
 Copyright 2008-2013 Concur Technologies, Inc.
+Copyright ©️ 2022-2023 VoPay International, Inc.
 
 Copyright 2022-2023 VoPay International
 
@@ -145,6 +146,14 @@ body {
 
   aside.success:before {
     @extend %icon-ok-sign;
+  }
+
+  aside.caution:before {
+    @extend %icon-caution-sign;
+  }
+
+  aside.test:before {
+    @extend %icon-test-sign;
   }
 }
 

@@ -3,12 +3,23 @@
 const cheerio = require('cheerio');
 const markdownItAnchor = require('markdown-it-anchor');
 const markdownItPrism = require('markdown-it-prism');
+const slugify = require('slugify');
+const markdownItAttrs = require('markdown-it-attrs');
+
 const markdown = require('markdown-it')({
   html: true,
   linkify: true,
   typographer: true
-}).use(markdownItAnchor, {})
+}).use(markdownItAnchor, {
+    slugify: s => slugify(s, {remove: /[*+~.()'"!:@]/g, strict: true
+}) })
   .use(markdownItPrism)
+  .use(markdownItAttrs, {
+    // optional, these are default options
+    leftDelimiter: '{',
+    rightDelimiter: '}',
+    allowedAttributes: []  // empty array => all attributes are allowed
+  });
 
 function language_array(language_tabs) {
   let result = [];
@@ -28,7 +39,7 @@ function image_tag(src, alt) {
 }
 
 function logo_image_tag() {
-  return '<img src="slate/img/vopay.svg" alt="Logo" class="logo">';
+  return '<img src="slate/img/vopay.svg" alt="VoPay logo" class="logo">';
 }
 
 function toc_data(content, headingLevel) {

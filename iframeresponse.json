@@ -1,0 +1,33 @@
+{
+    "MessageEvent": {
+        "isTrusted": "true",
+        "bubbles": "false",
+        "cancelBubble": "false",
+        "cancelable": "false",
+        "composed": "false",
+        "currentTarget": "Window {0: global, window: Window, self: Window, document: document, name: '', location: Location, …}",
+        "data": {
+            "AccountNumber": "100099999",
+            "BankId": "1884",
+            "Institution": "VOPAY TESTING BANK",
+            "Step": "LINK",
+            "Token": "8wcscwkwc4wo4wsgcgss4kswcg0s48cc4ow4wgg8cw0og48csswko4ww0088g4c4",
+            "Url": "https://redirect.com?Token=8wcscwkwc4wo4wsgcgss4kswcg0s48cc4ow4wgg8cw0og48csswko4ww0088g4c4",
+            "[[Prototype]]": "Object"
+        },
+        "defaultPrevented": "false",
+        "eventPhase": 0,
+        "lastEventId": "",
+        "origin": "https://embed-dev.vopay.com",
+        "path": ["Window"],
+        "ports": [],
+        "returnValue": "true",
+        "source": "global {window: global, self: global, location: {…}, closed: false, frames: global, …}",
+        "srcElement": "Window {0: global, window: Window, self: Window, document: document, name: '', location: Location, …}",
+        "target": "Window {0: global, window: Window, self: Window, document: document, name: '', location: Location, …}",
+        "timeStamp": 172788.90000000596,
+        "type": "message",
+        "userActivation": null,
+        "[[Prototype]]": "MessageEvent"
+    }
+}
