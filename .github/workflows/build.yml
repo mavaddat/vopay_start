@@ -7,8 +7,8 @@ on:
     branches: [ '*' ]
 
 jobs:
-  test:
-    name: Test
+  setup:
+    name: Setup
     runs-on: ubuntu-latest
 
     steps:
@@ -17,6 +17,9 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: '17'
+    - uses: ahmadnassri/actions-dependabot-auto-merge@v2
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Config
       shell: bash
@@ -30,6 +33,17 @@ jobs:
           exit 1
         fi
 
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js 17
+      uses: actions/setup-node@v2
+      with:
+        node-version: '17'
+
     - name: Lint
       run: |
         npm install --save-dev eslint && npm install eslint-config-google@latest && npm install --save-dev eslint-plugin-markdown
@@ -39,6 +53,17 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         reporter: github-pr-review
         eslint_flags: .*.js source/*.js
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js 17
+      uses: actions/setup-node@v2
+      with:
+        node-version: '17'
 
     - name: npm build and deploy
       run: |
