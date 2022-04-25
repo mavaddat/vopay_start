@@ -21,11 +21,17 @@ jobs:
     - name: Config
       shell: bash
       run: |
-        npm config set registry https://mavaddat.jfrog.io/artifactory/api/npm/default-npm-virtual/
+        npm config set registry https://mavaddat.jfrog.io/artifactory/api/npm/default-npm-remote/
         echo "registry=https://mavaddat.jfrog.io/artifactory/api/npm/default-npm-remote/" > ${{ github.workspace }}/.npmrc
-        echo "_authToken=${NPM_TOKEN}" >> ${{ github.workspace }}/.npmrc
-        echo "email=${NPM_EMAIL}" >> ${{ github.workspace }}/.npmrc
+        echo "_authToken=${{ secrets.NPM_TOKEN }}" >> ${{ github.workspace }}/.npmrc
+        echo "email=${{ secrets.NPM_EMAIL}}" >> ${{ github.workspace }}/.npmrc
         echo "always-auth=true" >> ${{ github.workspace }}/.npmrc
+        npm login
+        # if login failed, cat the newest log at /home/runner/.npm/_logs/*.log to see the error
+        if [ $? -ne 0 ]; then
+          cat /home/runner/.npm/_logs/*.log
+          exit 1
+        fi
 
     - name: Lint
       run: |

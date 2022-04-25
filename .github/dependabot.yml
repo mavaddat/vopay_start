@@ -1,7 +1,14 @@
 version: 2
+registries:
+  Artifactory:
+    type: npm-registry
+    url: registry https://mavaddat.jfrog.io/artifactory/api/npm/default-npm-remote/
+    token: ${{secrets.NPM_TOKEN}}
 updates:
 - package-ecosystem: npm
   directory: "/"
+  registries:
+  - Artifactory
   schedule:
     interval: daily
   open-pull-requests-limit: 25
