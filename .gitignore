@@ -4,3 +4,4 @@ _site/
 source/slate/js/lib/*.min.js
 source/slate/css/*.css
 out/
+.env
