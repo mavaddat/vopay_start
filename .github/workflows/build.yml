@@ -7,34 +7,8 @@ on:
     branches: [ '*' ]
 
 jobs:
-  setup:
-    name: Setup
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js 17
-      uses: actions/setup-node@v2
-      with:
-        node-version: '17'
-    - uses: ahmadnassri/action-dependabot-auto-merge@v2
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Config
-      shell: bash
-      run: |
-        npm config set registry https://mavaddat.jfrog.io/artifactory/api/npm/default-npm-remote/
-        curl -u ${{ secrets.NPM_EMAIL}}:${{ secrets.JFROGPASS }} https://mavaddat.jfrog.io/artifactory/api/npm/auth >> ${{ github.workspace }}/.npmrc
-        npm install async --dry-run --verbose
-        # if login failed, cat the newest log at /home/runner/.npm/_logs/*.log to see the error
-        if [ $? -ne 0 ]; then
-          cat /home/runner/.npm/_logs/*.log
-          exit 1
-        fi
-
-  test:
-    name: Test
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
 
     steps:
@@ -55,7 +29,7 @@ jobs:
         eslint_flags: .*.js source/*.js
 
   build:
-    name: Build
+    name: Build and Deploy
     runs-on: ubuntu-latest
 
     steps:
@@ -67,6 +41,14 @@ jobs:
 
     - name: npm build and deploy
       run: |
+        npm config set registry https://mavaddat.jfrog.io/artifactory/api/npm/default-npm-remote/
+        curl -u ${{ secrets.NPM_EMAIL}}:${{ secrets.JFROGPASS }} https://mavaddat.jfrog.io/artifactory/api/npm/auth >> ${{ github.workspace }}/.npmrc
+        npm install async --dry-run --verbose
+        # if login failed, cat the newest log at /home/runner/.npm/_logs/*.log to see the error
+        if [ $? -ne 0 ]; then
+          cat /home/runner/.npm/_logs/*.log
+          exit 1
+        fi
         npm install
         npm run build.sass && npm run build.11ty
     - name: Deploy
