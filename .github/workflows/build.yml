@@ -24,7 +24,8 @@ jobs:
         curl -u ${{ secrets.NPM_EMAIL}}:${{ secrets.JFROGPASS }} https://mavaddat.jfrog.io/artifactory/api/npm/auth >> ${{ github.workspace }}/.npmrc
         npm install --save-dev eslint && npm install eslint-config-google@latest && npm install --save-dev eslint-plugin-markdown
         if [ $? -ne 0 ]; then
-          cat /home/runner/.npm/_logs/*.log
+          npm_log_location=$(npm config get cache)
+          cat "${npm_log_location}/_logs/*.log"
           exit 1
         fi
         echo 'module.exports = {\n\t"env": {\n\t\t"browser": true,\n\t\t"es2021": true\n\t},\n\t"extends": [\n\t\t"google"\n\t],\n\t"parserOptions": {\n\t\t"ecmaVersion": "latest",\n\t\t"sourceType": "module"\n\t},\n\t"rules": {\n\t}\n}\n' > .eslintrc.js
@@ -51,14 +52,9 @@ jobs:
         npm config set registry https://mavaddat.jfrog.io/artifactory/api/npm/default-npm-remote/
         curl -u ${{ secrets.NPM_EMAIL}}:${{ secrets.JFROGPASS }} https://mavaddat.jfrog.io/artifactory/api/npm/auth >> ${{ github.workspace }}/.npmrc
         npm install async --dry-run --verbose
-        # if login failed, dynamically get the npm log location from npm output
         if [ $? -ne 0 ]; then
-          npm_log_location=$(grep 'npm WARN' ${{ github.workspace }}/.npm/_logs/*.log | awk '{print $6}')
-          echo "npm WARN: ${{ npm_log_location }}"
-          exit 1
-        fi
-        if [ $? -ne 0 ]; then
-          cat /home/runner/.npm/_logs/*.log
+          npm_log_location=$(npm config get cache)
+          cat "${npm_log_location}/_logs/*.log"
           exit 1
         fi
         npm install
