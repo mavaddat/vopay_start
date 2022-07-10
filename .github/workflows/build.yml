@@ -36,7 +36,6 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         reporter: github-check
-        workdir: ${{ github.workspace }}
         eslint_flags: .*.js source/*.js
 
   build:
