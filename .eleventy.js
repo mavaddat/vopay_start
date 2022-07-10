@@ -37,9 +37,9 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy(src+"/slate/img");
   eleventyConfig.addPassthroughCopy(src+"/slate/fonts");
   // copy jquery.min.js from node_modules to the slate/js/lib folder
-  eleventyConfig.addPassthroughCopy({"node_modules/jquery/dist/jquery.min.js":"slate/js/lib/jquery.min.js"});
+  //eleventyConfig.addPassthroughCopy({"node_modules/jquery/dist/jquery.min.js":"slate/js/lib/jquery.min.js"});
   // copy lunr.js from node_modules to the slate/js/lib folder
-  eleventyConfig.addPassthroughCopy({"node_modules/lunr/lunr.min.js":"slate/js/lib/lunr.min.js"});
+  //eleventyConfig.addPassthroughCopy({"node_modules/lunr/lunr.min.js":"slate/js/lib/lunr.min.js"});
   // copy imagesloaded from node_modules to the slate/js/lib folder
     eleventyConfig.addPassthroughCopy({"node_modules/imagesloaded/imagesloaded.pkgd.min.js":"slate/js/lib/imagesloaded.pkgd.min.js"});
   eleventyConfig.addPlugin(syntaxHighlight);
