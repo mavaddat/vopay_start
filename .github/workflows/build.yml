@@ -54,7 +54,7 @@ jobs:
         fi
         npm install
         # give npx root user privileges
-        sudo chmod +x $(which npx)
+        chmod +x $(which npx)
         npm run build.sass && npm run build.11ty
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@v4.3.0
