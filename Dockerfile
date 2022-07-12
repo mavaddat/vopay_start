@@ -6,17 +6,20 @@ RUN apt update && apt upgrade -y \
     curl \
     unzip \
     jq \
+    gpg \
+    lsb-core \
     build-essential \
     libcairo2-dev \
     libpango1.0-dev \
     libjpeg-dev \
     libgif-dev \
     librsvg2-dev
-# Download the latest curl binary (∵ apt does not have it)
-ENV USER="moparisthebest" \
-    REPO="static-curl"
 
-ENV GITHUB_API="https://api.github.com/repos/${USER}/${REPO}/releases/latest"
+# Download the latest curl binary (∵ apt does not have it)
+ENV GH_USER="moparisthebest" \
+    CURL_REPO="static-curl"
+
+ENV GITHUB_API="https://api.github.com/repos/${GH_USER}/${CURL_REPO}/releases/latest"
 
 RUN ARCH=$(dpkg --print-architecture) \
     && URL=$(curl -L -s -H 'Accept: application/json' $GITHUB_API | jq -r ".assets[] | select(.name | contains(\"$ARCH\")) | .browser_download_url") \
@@ -25,6 +28,19 @@ RUN ARCH=$(dpkg --print-architecture) \
     && apt remove curl -y && apt autoremove -y \
     && echo "Setting hardlink to curl" \
     && ln -s /usr/local/bin/curl /usr/bin/curl
+
+# Download the latest upstream git binary (∵ apt does not have it)
+
+ENV PPA_REPO="git-core/ppa"
+
+RUN mkdir /root/.gnupg/ \
+    && gpg --no-default-keyring --secret-keyring /etc/apt/secring.gpg --trustdb-name /etc/apt/trustdb.gpg --keyring /usr/share/keyrings/git-core-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys A1715D88E1DF1F24 \
+    && echo "deb [arch=amd64 signed-by=/usr/share/keyrings/git-core-archive-keyring.gpg] https://ppa.launchpadcontent.net/${PPA_REPO}/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/git-core.list \
+    && cat /etc/apt/sources.list.d/git-core.list \
+    && apt update \
+    && apt install -y git \
+    && echo "git version:" \
+    && git --version
 
 # Install aws cli
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip" \
