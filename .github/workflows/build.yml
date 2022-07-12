@@ -19,7 +19,7 @@ jobs:
     - name: Lint
       run: |
         cd $GITHUB_WORKSPACE
-        chown -R $GITHUB_ACTOR:$GITHUB_ACTOR .
+        chown -R $(whoami):$(whoami) .
         npm config set registry https://mavaddat.jfrog.io/artifactory/api/npm/default-npm-remote/
         curl -u ${{ secrets.NPM_EMAIL}}:${{ secrets.JFROGPASS }} https://mavaddat.jfrog.io/artifactory/api/npm/auth >> .npmrc
         npm install --save-dev eslint && npm install eslint-config-google@latest && npm install --save-dev eslint-plugin-markdown
@@ -47,7 +47,7 @@ jobs:
     - name: npm build and deploy
       run: |
         cd $GITHUB_WORKSPACE
-        chown -R $GITHUB_ACTOR:$GITHUB_ACTOR .
+        chown -R $(whoami):$(whoami) .
         npm config set registry https://mavaddat.jfrog.io/artifactory/api/npm/default-npm-remote/
         curl -u ${{ secrets.NPM_EMAIL}}:${{ secrets.JFROGPASS }} https://mavaddat.jfrog.io/artifactory/api/npm/auth >> .npmrc
         npm install async --dry-run --verbose
