@@ -32,7 +32,7 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         reporter: github-check
         eslint_flags: .*.js source/*.js
-        workdir: ${{ GITHUB_WORKSPACE }}
+        workdir: ${{ env.GITHUB_WORKSPACE }}
 
   build:
     name: Build and Deploy
@@ -53,7 +53,8 @@ jobs:
           exit 1
         fi
         npm install
-        chmod +x $(which npx)
+        # give npx root user privileges
+        chown -R root:root node_modules
         npm run build.sass && npm run build.11ty
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@v4.3.0
