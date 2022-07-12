@@ -5,8 +5,13 @@ RUN apt update && apt upgrade -y \
     && apt install -y \
     curl \
     unzip \
-    jq
-
+    jq \
+    build-essential \
+    libcairo2-dev \
+    libpango1.0-dev \
+    libjpeg-dev \
+    libgif-dev \
+    librsvg2-dev
 # Download the latest curl binary (∵ apt does not have it)
 ENV USER="moparisthebest" \
     REPO="static-curl"
@@ -34,7 +39,7 @@ ENV AWS_DEFAULT_REGION $AWS_DEFAULT_REGION
 
 
 # Install nodejs
-RUN curl -fsSL https://deb.nodesource.com/setup_17.x | sh - \
+RUN curl -fsSL https://deb.nodesource.com/setup_current.x | sh - \
     && apt install -y nodejs \
     && apt autoremove -y  \
     && rm -rf /var/lib/apt/lists/*
