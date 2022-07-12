@@ -3,7 +3,7 @@
 
 /*
 Copyright 2008-2013 Concur Technologies, Inc.
-Copyright ©️ 2022-2023 VoPay International, Inc.
+Copyright ©️ 2022-2023 Mav Jav Education, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may
 not use this file except in compliance with the License. You may obtain
@@ -32,9 +32,9 @@ under the License.
 
     $(".lang-selector a").removeClass('active');
     $(".lang-selector a[data-language-name='" + language + "']").addClass('active');
-    for (var i=0; i < languages.length; i++) {
-      $(".highlight.tab-" + languages[i]).hide();
-      $(".lang-specific." + languages[i]).hide();
+    for (const element of languages) {
+      $(".highlight.tab-" + element).hide();
+      $(".lang-specific." + element).hide();
     }
     $(".highlight.tab-" + language).show();
     $(".lang-specific." + language).show();
@@ -45,7 +45,7 @@ under the License.
     if ($(window.location.hash).get(0)) {
       $(window.location.hash).get(0).scrollIntoView(true);
     }
-    return false;
+    return true;
   }
 
   // parseURL and stringifyURL are from https://github.com/sindresorhus/query-string
@@ -56,7 +56,7 @@ under the License.
       return {};
     }
 
-    str = str.trim().replace(/^(\?|#|&)/, '');
+    str = str.trim().replace(/^([?#&])/, '');
 
     if (!str) {
       return {};
@@ -142,7 +142,7 @@ under the License.
       $(this).addClass("highlight");
       $(this).addClass("tab");
       var classList = $(this).attr('class').split(/\s+/);
-      $.each(classList, function(index, item) {
+      $.each(classList, function(_index, item) {
         if (item.startsWith('language-')) {
           var newClass = item.replace('language-', 'tab-');
           $(this).addClass(newClass);

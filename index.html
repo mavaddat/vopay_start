@@ -575,9 +575,9 @@ Balances always refer to specific funds for a distinct currency.
 </script>
 <h2 id="Funds-flow-diagram" tabindex="-1">Funds flow diagram</h2>
 <p>Consider the two wallets from the above section: $1,300 CAD, $700 USD. In this case, attempting to make an electronic funds transfer of $1,500 CAD would fail.</p>
-<p><div class="autocaption"><figure><img src="./../slate/img/wallet_fail.svg" alt="Example of failed transaction due to insufficient funds in the target currency" class="autocaption"><figcaption>A $1500 CAD transaction fails because Canadian funds are insufficient.</figcaption></figure></div></p>
+<p><div class="autocaption"><figure><img src="./slate/img/wallet_fail.svg" alt="Example of failed transaction due to insufficient funds in the target currency" class="autocaption"><figcaption>A $1500 CAD transaction fails because Canadian funds are insufficient.</figcaption></figure></div></p>
 <p>This situation can be remedied by funding your wallet in your target currency prior to the transaction.</p>
-<p><div class="autocaption"><figure><img src="./../slate/img/wallet_success.svg" alt="Example of successful transaction" class="autocaption"><figcaption>The user funded their CAD wallet, now a $1500 CAD transaction succeeds.</figcaption></figure></div></p>
+<p><div class="autocaption"><figure><img src="./slate/img/wallet_success.svg" alt="Example of successful transaction" class="autocaption"><figcaption>The user funded their CAD wallet, now a $1500 CAD transaction succeeds.</figcaption></figure></div></p>
 <h1 id="Fundamentals" tabindex="-1">Fundamentals</h1>
 <p>VoPay authenticates, validates, and checks your request for possible duplication (to accomplish <a href="#Idempotent-requests">idempotency</a>).</p>
 <p>Now you will learn how to provide the authenticating information for every request.</p>
@@ -741,7 +741,7 @@ signature <span class="token operator">=</span> <span class="token function">has
 <p>To ensure you can safely retry requests without accidentally performing the same operation twice, all of our transaction endpoints support <em>idempotency</em>. API idempotency is useful in case your requests are disrupted in transit or you otherwise fail to receive a response.</p>
 <aside class="notice">When idempotency is enabled, multiple invocations will not duplicate the transaction.</aside>
 <p>For example, if a request to the <a href="https://docs.vopay.com/v2/vopay-api-reference/ref#eftfundget"><strong>EFT Fund endpoint</strong></a> does not respond due to a network connection error, you can retry the <code>FUND</code> request with the same <strong>idempotency key</strong>, thereby guaranteeing that not more than one funding transaction will have been created.</p>
-<p><div class="autocaption"><figure><img src="../slate/img/idempotency.png" alt="Idempotency flow chart" class="autocaption"><figcaption>You choose a unique idempotency key that you assign to each call. If we have seen the key already, we notify you and ask for a new key. Otherwise, the API call is executed.</figcaption></figure></div></p>
+<p class="autocaption"><img src="./slate/img/idempotency.png" alt="Idempotency flow chart"> “You choose a unique idempotency key that you assign to each call. If we have seen the key already, we notify you and ask for a new key. Otherwise, the API call is executed.”)</p>
 <p>An idempotency key is a unique key of your choosing which the server can use to recognize and reject subsequent retries of the same request. To perform an idempotent request, provide an <code>IdempotencyKey</code> in the body of the <code>POST</code> request.</p>
 <aside class="notice">The specific implementation of generating the unique value is up to you. It can be as simple as just an ordinal number (1, 2, 3, …) or as complex as a hash of critical details.</aside>
 <h1 id="Checking-your-VoPay-balance" tabindex="-1">Checking your VoPay balance</h1>
@@ -1139,7 +1139,7 @@ r <span class="token operator">=</span> <span class="token keyword">await</span>
 </code></pre>
 <!-- transaction is marked as successful at midnight EST on the day the withdraw was submitted (i.e., if withdraw was done at 2pm on Monday, transaction will be marked as successful at 11:59pm EST on Monday) -->
 <p>The withdrawal will be marked as successful at midnight EST on the day the withdrawal was submitted. For example, a withdrawal performed at 2 PM on Monday will be marked as successful at 11:59 PM EST on Monday.</p>
-<p><img src="slate/img/withdrawal.svg" alt="Diagram showing settlement period for withdrawal"></p>
+<p><img src="slate/img/settlement.svg" alt="Diagram showing settlement period for withdrawal"></p>
 <h2 id="Interac-e-transfer" tabindex="-1">Interac e-transfer</h2>
 <!-- /interac/bulk-payout -->
 <p><code class="httpmethod">POST</code> <code class="endpoint">/interac/bulk-payout</code></p>
