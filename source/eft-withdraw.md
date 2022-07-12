@@ -88,4 +88,4 @@ If you check the balance now, you will see`AccountBalance` and `AvailableFunds` 
 
 The withdrawal will be marked as successful at midnight EST on the day the withdrawal was submitted. For example, a withdrawal performed at 2 PM on Monday will be marked as successful at 11:59 PM EST on Monday.
 
-![Diagram showing settlement period for withdrawal](slate/img/withdrawal.svg)
+![Diagram showing settlement period for withdrawal](slate/img/settlement.svg)

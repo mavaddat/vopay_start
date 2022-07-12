@@ -9,12 +9,12 @@ const cheerio = require('cheerio');
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const { window } = new JSDOM('<html></html>');
-var $ = require('jquery')(window);
+let $; // the dollar sign will be cheerio instance, then we can use jQuery
 module.exports = function(eleventyConfig) {
   const src = process.env.SLATEDIR || 'source';
   eleventyConfig.setUseGitIgnore(false);
-  eleventyConfig.addTransform("autocaption", function(content, outputPath) {
-    const $ = cheerio.load(content);
+  eleventyConfig.addTransform("autocaption", function(content, _outputPath) {
+    $ = cheerio.load(content);
     $('img.autocaption').each(function() {
         // get the title text
         const titleTxt = $(this).attr('title');
@@ -32,6 +32,7 @@ module.exports = function(eleventyConfig) {
     content = $.html();
     return content;
   });
+  $ = require('jquery')(window);
   eleventyConfig.addPassthroughCopy(src+"/slate/css/*.css");
   eleventyConfig.addPassthroughCopy(src+"/slate/js");
   eleventyConfig.addPassthroughCopy(src+"/slate/img");
