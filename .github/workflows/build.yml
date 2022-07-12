@@ -10,7 +10,9 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
-    container: mavaddat/caironode:latest
+    container:
+      image: mavaddat/caironode:latest
+      options: --user root
 
     steps:
     - uses: actions/checkout@v3
@@ -34,8 +36,9 @@ jobs:
   build:
     name: Build and Deploy
     runs-on: ubuntu-latest
-    container: mavaddat/caironode:latest
-
+    container:
+      image: mavaddat/caironode:latest
+      options: --user root
     steps:
     - uses: actions/checkout@v3
     - name: npm build and deploy
