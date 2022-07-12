@@ -18,6 +18,7 @@ jobs:
     - uses: actions/checkout@v3
     - name: Lint
       run: |
+        cd $GITHUB_WORKSPACE
         npm config set registry https://mavaddat.jfrog.io/artifactory/api/npm/default-npm-remote/
         curl -u ${{ secrets.NPM_EMAIL}}:${{ secrets.JFROGPASS }} https://mavaddat.jfrog.io/artifactory/api/npm/auth >> .npmrc
         npm install --save-dev eslint && npm install eslint-config-google@latest && npm install --save-dev eslint-plugin-markdown
@@ -44,6 +45,7 @@ jobs:
     - uses: actions/checkout@v3
     - name: npm build and deploy
       run: |
+        cd $GITHUB_WORKSPACE
         npm config set registry https://mavaddat.jfrog.io/artifactory/api/npm/default-npm-remote/
         curl -u ${{ secrets.NPM_EMAIL}}:${{ secrets.JFROGPASS }} https://mavaddat.jfrog.io/artifactory/api/npm/auth >> .npmrc
         npm install async --dry-run --verbose
