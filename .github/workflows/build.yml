@@ -16,10 +16,6 @@ jobs:
     - uses: actions/checkout@v3
     - name: Use Node.js 18
       uses: actions/setup-node@v3
-      with:
-        node-version: 'latest'
-        check-latest: true
-        cache: 'npm'
     - name: Lint
       run: |
         npm config set registry https://mavaddat.jfrog.io/artifactory/api/npm/default-npm-remote/
@@ -45,11 +41,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Use Node.js 18
-      uses: actions/setup-node@v3
-      with:
-        node-version: 'latest'
-        check-latest: true
-        cache: 'npm'
     - name: npm build and deploy
       run: |
         npm config set registry https://mavaddat.jfrog.io/artifactory/api/npm/default-npm-remote/
