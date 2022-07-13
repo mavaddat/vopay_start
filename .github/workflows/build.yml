@@ -22,7 +22,7 @@ jobs:
         chown -R $(whoami):$(whoami) .
         npm config set registry https://mavaddat.jfrog.io/artifactory/api/npm/default-npm-remote/
         curl -u ${{ secrets.NPM_EMAIL}}:${{ secrets.JFROGPASS }} https://mavaddat.jfrog.io/artifactory/api/npm/auth >> .npmrc
-        npm install --save-dev eslint && npm install eslint-config-google@latest && npm install --save-dev eslint-plugin-markdown
+        npm install --save-dev eslint && npm install eslint-config-google@latest && npm install --save-dev eslint-plugin-markdown && npm install --save-dev eslint-formatter-rdjson
         if [ $? -ne 0 ]; then
           npm_log_location=$(npm config get cache)
           cat "${npm_log_location}/_logs/*.log"
@@ -32,9 +32,11 @@ jobs:
     - uses: reviewdog/action-eslint@v1
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        reporter: github-check
+        reporter: github-pr-review
         eslint_flags: .*.js source/*.js
         workdir: ${{ env.GITHUB_WORKSPACE }}
+        filter_mode: 'diff_context'
+    - uses: reviewdog/action-suggester@v1
 
   build:
     name: Build and Deploy
