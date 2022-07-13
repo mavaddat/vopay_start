@@ -27,19 +27,22 @@ RUN ARCH=$(dpkg --print-architecture) \
     && chmod +x /usr/local/bin/curl \
     && apt remove curl -y && apt autoremove -y \
     && echo "Setting hardlink to curl" \
-    && ln -s /usr/local/bin/curl /usr/bin/curl
+    && ln -s /usr/local/bin/curl /usr/bin/curl \
+    && echo "curl version '$(which curl)':" \
+    && curl --version
 
 # Download the latest upstream git binary (∵ apt does not have it)
 
-ENV PPA_REPO="git-core/ppa"
+ENV PPA_REPO="git-core" \
+    PPA_SIG="A1715D88E1DF1F24"
 
 RUN mkdir /root/.gnupg/ \
-    && gpg --no-default-keyring --secret-keyring /etc/apt/secring.gpg --trustdb-name /etc/apt/trustdb.gpg --keyring /usr/share/keyrings/git-core-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys A1715D88E1DF1F24 \
-    && echo "deb [arch=amd64 signed-by=/usr/share/keyrings/git-core-archive-keyring.gpg] https://ppa.launchpadcontent.net/${PPA_REPO}/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/git-core.list \
-    && cat /etc/apt/sources.list.d/git-core.list \
+    && gpg --no-default-keyring --secret-keyring /etc/apt/secring.gpg --trustdb-name /etc/apt/trustdb.gpg --keyring /usr/share/keyrings/${PPA_REPO}-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys ${PPA_SIG} \
+    && echo "deb [arch=amd64 signed-by=/usr/share/keyrings/${PPA_REPO}-archive-keyring.gpg] https://ppa.launchpadcontent.net/${PPA_REPO}/ppa/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/${PPA_REPO}.list \
+    && cat /etc/apt/sources.list.d/${PPA_REPO}.list \
     && apt update \
     && apt install -y git \
-    && echo "git version:" \
+    && echo "git version '$(which git)':" \
     && git --version
 
 # Install aws cli
