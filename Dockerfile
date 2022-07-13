@@ -19,10 +19,10 @@ RUN apt update && apt upgrade -y \
 ENV GH_USER="moparisthebest" \
     CURL_REPO="static-curl"
 
-ENV GITHUB_API="https://api.github.com/repos/${GH_USER}/${CURL_REPO}/releases/latest"
+ENV CURL_LATEST="https://api.github.com/repos/${GH_USER}/${CURL_REPO}/releases/latest"
 
 RUN ARCH=$(dpkg --print-architecture) \
-    && URL=$(curl -L -s -H 'Accept: application/json' $GITHUB_API | jq -r ".assets[] | select(.name | contains(\"$ARCH\")) | .browser_download_url") \
+    && URL=$(curl -L -s -H 'Accept: application/json' $CURL_LATEST | jq -r ".assets[] | select(.name | contains(\"$ARCH\")) | .browser_download_url") \
     && curl -L $URL --output /usr/local/bin/curl \
     && chmod +x /usr/local/bin/curl \
     && apt remove curl -y && apt autoremove -y \
